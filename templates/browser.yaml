@@ -12,7 +12,8 @@ spec:
       targetPort: 50070
     - name: tomcat
       port: 8080
-      targetPort: 58080
+      targetPort: 8080
+      nodePort: 48725
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 
