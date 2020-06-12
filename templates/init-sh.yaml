@@ -56,23 +56,22 @@ data:
     
 
 
-    echo "初始化hive"
-    ssh root@$host_dns_1 "source /etc/profile && echo \"nohup hive --service hiveserver2 &\" > /user/a.sh && nohup /user/a.sh >/dev/null 2>&1 &"
-    sleep 20
+    # echo "初始化hive"
+    # ssh root@$host_dns_1 "source /etc/profile && echo \"nohup hive --service hiveserver2 &\" > /user/a.sh && nohup /user/a.sh >/dev/null 2>&1 &"
+    # sleep 20
 
-    echo "初始化hbase"
-    ssh root@$host_dns_1 "source /etc/profile && start-hbase.sh"
-    sleep 10
+    # echo "初始化hbase"
+    # ssh root@$host_dns_1 "source /etc/profile && start-hbase.sh"
+    # sleep 10
 
-    echo "初始化oozie"
-    ssh root@$host_dns_0 "source /etc/profile && oozie-setup.sh prepare-war sharelib create -fs hdfs://ns  -locallib  /user/apps/oozie-4.0.0/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz"
-    ssh root@$host_dns_0 "source /etc/profile && ooziedb.sh create -sqlfile oozie.sql -run DB Connection /user/apps/oozie-4.0.0/"
-    ssh root@$host_dns_0 "source /etc/profile && oozied.sh start"
+    # echo "初始化oozie"
+    # ssh root@$host_dns_0 "source /etc/profile && oozie-setup.sh prepare-war sharelib create -fs hdfs://ns  -locallib  /user/apps/oozie-4.0.0/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz"
+    # ssh root@$host_dns_0 "source /etc/profile && ooziedb.sh create -sqlfile oozie.sql -run DB Connection /user/apps/oozie-4.0.0/"
+    # ssh root@$host_dns_0 "source /etc/profile && oozied.sh start"
     
-    if [ $volumeinitvar = true ]; then
-      echo "初始化算法组件"
-      ssh root@$host_dns_0 "source /etc/profile && hadoop dfs -mkdir /EML/ && hadoop dfs -mkdir /EML/lensData && hadoop dfs -mkdir /EML/LensProcessData/ && hadoop dfs -mkdir /EML/oozie/ && hadoop dfs -mkdir /EML/tmp/ && cd /user/apps/data-modules && hadoop dfs -put -f Modules /EML/"
-    fi
+    # if [ $volumeinitvar = true ]; then
+    #   echo "初始化算法组件"
+    #   ssh root@$host_dns_0 "source /etc/profile && hadoop dfs -mkdir /EML/ && hadoop dfs -mkdir /EML/lensData && hadoop dfs -mkdir /EML/LensProcessData/ && hadoop dfs -mkdir /EML/oozie/ && hadoop dfs -mkdir /EML/tmp/ && cd /user/apps/data-modules && hadoop dfs -put -f Modules /EML/"
+    # fi
 
-    # touch /initdata/o.lock;
     echo "大数据平台启动成功！"
