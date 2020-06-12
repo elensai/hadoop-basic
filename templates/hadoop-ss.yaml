@@ -88,8 +88,8 @@ spec:
         - name: sh
           mountPath: /user/init.sh
           subPath: init.sh
-        # - name: {{ .Chart.Name }}
-        #   mountPath: /user/data/hadoop
+        - name: {{ .Chart.Name }}
+          mountPath: /user/data
       volumes:
       - name: core-site
         configMap:
