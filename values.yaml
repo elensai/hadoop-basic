@@ -1,0 +1,23 @@
+# Default values for hadoop-basic.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  app_namespace_bak: ""
+
+BasicConfig:
+  StorageServer: ""
+  StoragePath: ""
+  StorageCapacity: ""
+  RootPasswd: ""
+  ServicePort: ""
+
+databaseimage: registry.elensdata.com:333/apm/zhidatabase
+
+volumenum:
+- num: "0"
+- num: "1"
+- num: "2"
+# 总结点数，最后一个节点索引，如：4个节点，最后一个索引是3
+lastnodeindex: 2
+

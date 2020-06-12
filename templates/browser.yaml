@@ -1,0 +1,125 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-browser0
+  labels:
+    dep: hdfs-browser
+spec:
+  type: NodePort
+  ports:
+    - name: hdfs
+      port: 50070
+      targetPort: 50070
+    - name: tomcat
+      port: 8080
+      targetPort: 58080
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-browser1
+  labels:
+    dep: hdfs-browser
+spec:
+  type: NodePort
+  ports:
+    - name: hdfs
+      port: 50070
+      targetPort: 50070
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-browser
+  labels:
+    dep: spark-browser
+spec:
+  type: NodePort
+  ports:
+    - name: sparkui
+      port: 7180
+      targetPort: 7180
+    - name: sparkhis1
+      port: 18080
+      targetPort: 18080
+    - name: sparkhis2
+      port: 18089
+      targetPort: 18089
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarn-browser1
+  labels:
+    dep: yarn-browser
+spec:
+  type: NodePort
+  ports:
+    - name: yarn
+      port: 8088
+      targetPort: 8088
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarn-browser2
+  labels:
+    dep: yarn-browser
+spec:
+  type: NodePort
+  ports:
+    - name: yarn
+      port: 8088
+      targetPort: 8088
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: history-browser
+  labels:
+    dep: history-browser
+spec:
+  type: NodePort
+  ports:
+    - name: history
+      port: 19888
+      targetPort: 19888
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: oozie-browser
+  labels:
+    dep: oozie-browser
+spec:
+  type: NodePort
+  ports:
+    - name: oozie
+      port: 11000
+      targetPort: 11000
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"

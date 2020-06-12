@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: initsh
+  namespace: {{ .Release.Namespace }}
+data:
+  initsh-config: |-
+    #!/bin/bash
+    export JAVA_HOME=/user/apps/jdk1.8.0_131
+    export SCALA_HOME=/user/apps/scala-2.11.8
+    export ZOOKEEPER_HOME=/user/apps/zookeeper-3.4.12
+    export HADOOP_HOME=/user/apps/hadoop-2.7.1
+    export HIVE_HOME=/user/apps/hive-1.2.1
+    export HBASE_HOME=/user/apps/hbase-1.4.4
+    export SPARK_HOME=/user/apps/spark-2.3.4
+    export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/jre/lib/rt.jar
+    export HCAT_HOME=$HIVE_HOME/hcatalog
+    export KYLIN_HOME=/user/apps/kylin-1.6.0
+    export CATALINA_HOME=$KYLIN_HOME/tomcat
+    export hive_dependency=$HIVE_HOME/conf:$HIVE_HOME/lib/*:$HIVE_HOME/share/hcatalog/hive-hcatalog-core-1.2.1.jar
+    export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$SCALA_HOME/bin:$ZOOKEEPER_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME/bin:$HBASE_HOME/bin:$SPARK_HOME/bin:$PATH:$HCAT_HOME/bin:$KYLIN_HOME/bin:$HOME/bin
+    host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
+    echo $host_num > /user/data/zookeeper/data/myid 
+    exec /usr/sbin/init 
+    

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Chart.Name }}-dep"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: "{{ .Chart.Name }}-dep"
+spec:
+  replicas: {{ .Values.apm_ReplicaCount }}
+  selector:
+    matchLabels:
+      app: "{{ .Chart.Name }}-pod"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}-pod"
+    spec:
+      containers:
+        - name: con
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/bash", "-c", "/usr/local/bin/docker-entrypoint.sh mysqld"]
+          env:
+            - name: "MYSQL_ROOT_PASSWORD"
+              value: {{ .Values.BasicConfig.RootPasswd | quote }}
+          ports:
+            - name: mysql-port
+              containerPort: 3306
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: mysqldb
+            - name: mysqldcnf
+              mountPath: /etc/mysql/mysql.conf.d/mysqld.cnf
+              subPath: mysqld.cnf
+      volumes:
+        - name: mysqldb
+          persistentVolumeClaim:
+            claimName: "{{ .Chart.Name }}-pvc"
+        - name: mysqldcnf
+          configMap:
+            name: "{{ .Chart.Name }}-mysqldcnf"
+            items:
+              - key: mysqldcnf-config
+                path: mysqld.cnf
+
+

@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: 5.7.28
+description: mysql 数据库
+name: mysql-basic
+type: application
+version: 0.1.0

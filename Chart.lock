@@ -1,0 +1,6 @@
+dependencies:
+- name: mysql-basic
+  repository: http://192.168.1.148:36360/
+  version: 0.1.0
+digest: sha256:2b8788025d64d821a5bdf6eb5ab1cd52f7fb4cda969fb56bb31c580bf66c1fab
+generated: "2020-06-03T21:38:47.634969+08:00"

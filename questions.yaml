@@ -1,0 +1,78 @@
+questions:
+- variable: global.app_namespace_bak
+  type: string
+  default: ""
+  group: "global"
+  label: "备用命名空间(备用字段，不必填写)"
+
+- variable: BasicConfig.StorageServer
+  type: string
+  default: 192.168.1.163
+  group: "hadoop-basic"
+  label: "NFS服务器IP"
+
+- variable: BasicConfig.StoragePath
+  type: string
+  default: /nfsdata/prod-cluster/
+  group: "hadoop-basic"
+  label: "NFS服务器路径(必须 / 结尾)"
+
+- variable: BasicConfig.StorageCapacity
+  type: string
+  default: 1Gi
+  group: "hadoop-basic"
+  label: "存储空间大小"
+
+- variable: BasicConfig.InitHadoopVol
+  type: boolean
+  default: false
+  group: "hadoop-basic"
+  label: "是否初始化大数据平台存储，默认：否"
+
+- variable: BasicConfig.MysqlURL
+  type: string
+  default: mysql-basic-svc
+  group: "hadoop-basic"
+  label: "mysql 地址"
+
+- variable: BasicConfig.MysqlRootPasswd
+  type: string
+  default: pw123456
+  group: "hadoop-basic"
+  label: "mysql root密码"
+
+- variable: BasicConfig.ServicePort
+  type: string
+  default: 3306
+  group: "hadoop-basic"
+  label: "mysql 端口"
+
+- variable: mysql-basic.BasicConfig.StorageServer
+  type: string
+  default: 192.168.1.163
+  group: "mysql-basic"
+  label: "NFS服务器IP"
+
+- variable: mysql-basic.BasicConfig.StoragePath
+  type: string
+  default: /nfsdata/prod-cluster/
+  group: "mysql-basic"
+  label: "NFS服务器路径(必须 / 结尾)"
+
+- variable: mysql-basic.BasicConfig.StorageCapacity
+  type: string
+  default: 1Gi
+  group: "mysql-basic"
+  label: "mysql存储容量"
+
+- variable: mysql-basic.BasicConfig.RootPasswd
+  type: string
+  default: pw123456
+  group: "mysql-basic"
+  label: "mysql初始化root密码"
+
+- variable: mysql-basic.BasicConfig.ServicePort
+  type: string
+  default: 3306
+  group: "mysql-basic"
+  label: "mysql初始化端口"

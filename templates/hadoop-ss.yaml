@@ -1,0 +1,194 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ha-svc
+  lables:
+    app: ha-svc
+spec:
+  ports:
+  - name: ss-port
+    port: 22
+  selector:
+    app: centospod
+  clusterIP: None
+
+---
+
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: "{{ .Chart.Name }}-ss"
+spec:
+  selector:
+    matchLabels:
+      app: centospod
+  serviceName: ha-svc
+  replicas: {{len .Values.volumenum}}
+  template:
+    metadata:
+      labels:
+        app: centospod
+    spec:
+      containers:
+      - name: cc
+        image: "{{ .Values.databaseimage }}:{{ .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "-c", "sh /user/init.sh"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: core-site
+          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/core-site.xml
+          subPath: core-site.xml
+        - name: core-site
+          mountPath: /user/apps/hbase-1.4.4/conf/core-site.xml 
+          subPath: core-site.xml
+        - name: hdfs-site
+          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/hdfs-site.xml
+          subPath: hdfs-site.xml
+        - name: hdfs-site
+          mountPath: /user/apps/hbase-1.4.4/conf/hdfs-site.xml
+          subPath: hdfs-site.xml
+        - name: mapred-site
+          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/mapred-site.xml
+          subPath: mapred-site.xml
+        - name: yarn-site
+          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/yarn-site.xml
+          subPath: yarn-site.xml
+        - name: slaves
+          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/slaves
+          subPath: slaves
+        - name: sparkenv
+          mountPath: /user/apps/spark-2.3.4/conf/spark-env.sh
+          subPath: spark-env.sh
+        - name: zoocfg
+          mountPath: /user/apps/zookeeper-3.4.12/conf/zoo.cfg
+          subPath: zoo.cfg
+        - name: hadoop-env
+          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/hadoop-env.sh
+          subPath: hadoop-env.sh
+        - name: hive-site
+          mountPath: /user/apps/hive-1.2.1/conf/hive-site.xml
+          subPath: hive-site.xml
+        - name: hive-log4j
+          mountPath: /user/apps/hive-1.2.1/conf/hive-log4j.properties 
+          subPath: hive-log4j.properties 
+        - name: hive-env
+          mountPath: /user/apps/hive-1.2.1/conf/hive-env.sh
+          subPath: hive-env.sh
+        - name: hbase-env
+          mountPath: /user/apps/hbase-1.4.4/conf/hbase-env.sh
+          subPath: hbase-env.sh
+        - name: hbase-site
+          mountPath: /user/apps/hbase-1.4.4/conf/hbase-site.xml
+          subPath: hbase-site.xml
+        - name: oozie-site
+          mountPath: /user/apps/oozie-4.0.0/conf/oozie-site.xml
+          subPath: oozie-site.xml
+        - name: sh
+          mountPath: /user/init.sh
+          subPath: init.sh
+        # - name: {{ .Chart.Name }}
+        #   mountPath: /user/data/hadoop
+      volumes:
+      - name: core-site
+        configMap:
+          name: core-site
+          items:
+          - key: core-site-config
+            path: core-site.xml
+      - name: hdfs-site
+        configMap:
+          name: hdfs-site
+          items:
+          - key: hdfs-site-config
+            path: hdfs-site.xml
+      - name: mapred-site
+        configMap:
+          name: mapred-site
+          items:
+          - key: mapred-site-config
+            path: mapred-site.xml
+      - name: yarn-site
+        configMap:
+          name: yarn-site
+          items:
+          - key: yarn-site-config
+            path: yarn-site.xml
+      - name: slaves
+        configMap:
+          name: slaves
+          items:
+          - key: slaves-config
+            path: slaves
+      - name: sparkenv
+        configMap:
+          name: sparkenv
+          items:
+          - key: sparkenv-config
+            path: spark-env.sh
+      - name: zoocfg
+        configMap:
+          name: zoocfg
+          items:
+          - key: zoocfg-config
+            path: zoo.cfg
+      - name: hadoop-env
+        configMap:
+          name: hadoop-env
+          items:
+          - key: hadoop-env-config
+            path: hadoop-env.sh
+      - name: hive-site
+        configMap:
+          name: hive-site
+          items:
+          - key: hive-site-config
+            path: hive-site.xml
+      - name: hive-log4j
+        configMap:
+          name: hive-log4j
+          items:
+          - key: hive-log4j-config
+            path: hive-log4j.properties
+      - name: hive-env
+        configMap:
+          name: hive-env
+          items:
+          - key: hive-env-config
+            path: hive-env.sh
+      - name: hbase-env
+        configMap:
+          name: hbase-env
+          items:
+          - key: hbase-env-config
+            path: hbase-env.sh
+      - name: hbase-site
+        configMap:
+          name: hbase-site
+          items:
+          - key: hbase-site-config
+            path: hbase-site.xml
+      - name: oozie-site
+        configMap:
+          name: oozie-site
+          items:
+          - key: oozie-site-config
+            path: oozie-site.xml
+      - name: sh
+        configMap:
+          name: initsh
+          items:
+          - key: initsh-config
+            path: init.sh
+
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Chart.Name }}
+    spec:
+      accessModes:
+      - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: {{ .Values.BasicConfig.StorageCapacity }}
+

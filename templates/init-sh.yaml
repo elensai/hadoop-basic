@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: initpsh
+  namespace: {{ .Release.Namespace }}
+data:
+  initpsh-config: |-
+    {{- $app_namespace_bak := .Values.global.app_namespace_bak }}
+    {{- $chartName := .Chart.Name }}
+    {{- $namespace := .Release.Namespace }}
+    #!/bin/bash
+    {{ range .Values.volumenum }}
+    host_dns_{{ .num }}="{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local"
+    {{- end }}
+    touch /user/${host_num}f.txt
+
+    volumeinitvar={{.Values.BasicConfig.InitHadoopVol}}
+    echo "是否初始化大数据平台："$volumeinitvar
+    
+
+    echo "开始安装大数据平台"
+    {{$lastnodeindex := .Values.lastnodeindex|int}} 
+    until [ {{ range $key, $val := .Values.volumenum }}`ping -c 1 {{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local | grep ', 0% packet loss,' | wc -l` = 1 {{ if eq $key $lastnodeindex }}{{- else }} -a {{ end }}  {{ end }}]
+    do
+      sleep 3
+      echo "等待DNS服务"
+    done
+
+    if [ $volumeinitvar = true ]; then
+      echo "清理源数据"
+      ssh root@$host_dns_0 "rm -rf /user/data/hadoop/*"
+      ssh root@$host_dns_1 "rm -rf /user/data/hadoop/*"
+      ssh root@$host_dns_2 "rm -rf /user/data/hadoop/*"
+    fi
+
+    {{ range .Values.volumenum }}
+    ssh root@$host_dns_{{ .num }} "source /etc/profile && zkServer.sh start"
+    {{- end }}
+
+    ssh root@$host_dns_0 "source /etc/profile && hadoop-daemons.sh start journalnode"      
+    
+
+    if [ $volumeinitvar = true ]; then
+      echo "初始化hdfs"
+      ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
+      ssh root@$host_dns_0 "source /etc/profile && hadoop namenode -format"
+      ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
+    else
+      ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
+    fi
+
+    ssh root@$host_dns_0 "source /etc/profile && start-dfs.sh"
+    ssh root@$host_dns_1 "source /etc/profile && start-yarn.sh"
+    ssh root@$host_dns_2 "source /etc/profile && yarn-daemon.sh start resourcemanager"
+    ssh root@$host_dns_0 "source /etc/profile && mr-jobhistory-daemon.sh start historyserver"
+    
+
+
+    echo "初始化hive"
+    ssh root@$host_dns_1 "source /etc/profile && echo \"nohup hive --service hiveserver2 &\" > /user/a.sh && nohup /user/a.sh >/dev/null 2>&1 &"
+    sleep 20
+
+    echo "初始化hbase"
+    ssh root@$host_dns_1 "source /etc/profile && start-hbase.sh"
+    sleep 10
+
+    echo "初始化oozie"
+    ssh root@$host_dns_0 "source /etc/profile && oozie-setup.sh prepare-war sharelib create -fs hdfs://ns  -locallib  /user/apps/oozie-4.0.0/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz"
+    ssh root@$host_dns_0 "source /etc/profile && ooziedb.sh create -sqlfile oozie.sql -run DB Connection /user/apps/oozie-4.0.0/"
+    ssh root@$host_dns_0 "source /etc/profile && oozied.sh start"
+    
+    if [ $volumeinitvar = true ]; then
+      echo "初始化算法组件"
+      ssh root@$host_dns_0 "source /etc/profile && hadoop dfs -mkdir /EML/ && hadoop dfs -mkdir /EML/lensData && hadoop dfs -mkdir /EML/LensProcessData/ && hadoop dfs -mkdir /EML/oozie/ && hadoop dfs -mkdir /EML/tmp/ && cd /user/apps/data-modules && hadoop dfs -put -f Modules /EML/"
+    fi
+
+    # touch /initdata/o.lock;
+    echo "大数据平台启动成功！"

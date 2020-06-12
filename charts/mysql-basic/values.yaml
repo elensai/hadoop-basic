@@ -1,0 +1,22 @@
+
+global:
+  app_namespace_bak: ""
+
+BasicConfig:
+  StorageServer: 192.168.1.163
+  StoragePath: /nfsdata/prod-cluster/
+  StorageCapacity: 1Gi
+  RootPasswd: pw123456
+  ServicePort: 3306
+
+replicaCount: 1
+
+image:
+  repository: registry.elensdata.com:333/elensai/mysql
+  pullPolicy: IfNotPresent
+  imagePullSecrets: []
+
+service:
+  # type: ClusterIP
+  type: NodePort
+

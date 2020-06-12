@@ -1,0 +1,64 @@
+{{- $app_namespace_bak := .Values.global.app_namespace_bak }}
+{{- $chartName := .Chart.Name }}
+{{- $namespace := .Release.Namespace }}
+
+{{- $StorageServer := .Values.BasicConfig.StorageServer }}
+{{- $Capacity := .Values.BasicConfig.StorageCapacity }}
+{{- $StoragePath := .Values.BasicConfig.StoragePath }}
+
+
+{{- range .Values.volumenum }}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ if $app_namespace_bak }}{{ $chartName }}-sc-{{ $namespace }}-{{ $app_namespace_bak }}-{{ .num }}{{ else }}{{ $chartName }}-sc-{{ $namespace }}-{{ .num }}{{ end }}
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+{{- end }}
+
+---
+
+{{- range .Values.volumenum }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ if $app_namespace_bak }}{{ $chartName }}-pv-{{ $namespace }}-{{ $app_namespace_bak }}-{{ .num }}{{ else }}{{ $chartName }}-pv-{{ $namespace }}-{{ .num }}{{ end }}
+spec:
+  capacity:
+    storage: {{ $Capacity }}
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ if $app_namespace_bak }}{{ $chartName }}-sc-{{ $namespace }}-{{ $app_namespace_bak }}-{{ .num }}{{ else }}{{ $chartName }}-sc-{{ $namespace }}-{{ .num }}{{ end }}
+  nfs:
+    {{- if $app_namespace_bak }}
+    path: {{ $StoragePath }}{{ $namespace }}/{{ $app_namespace_bak }}/{{ $chartName }}-{{ $chartName }}-ss-{{ .num }}
+    {{- else }}
+    path: {{ $StoragePath }}{{ $namespace }}/{{ $chartName }}-{{ $chartName }}-ss-{{ .num }}
+    {{- end }}
+
+
+    server: {{ $StorageServer }}
+---
+{{- end }}
+
+---
+
+{{- range .Values.volumenum }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $chartName }}-{{ $chartName }}-ss-{{ .num }}
+  namespace: {{ $namespace }}
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ $Capacity }}
+  storageClassName: {{ if $app_namespace_bak }}{{ $chartName }}-sc-{{ $namespace }}-{{ $app_namespace_bak }}-{{ .num }}{{ else }}{{ $chartName }}-sc-{{ $namespace }}-{{ .num }}{{ end }}
+---
+{{- end }}
+
+
