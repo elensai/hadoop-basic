@@ -6,7 +6,7 @@ metadata:
 data:
   initsh-config: |-
     #!/bin/bash
-    source /user/apps/hadoop2-etcprofile.sh
+    source /etc/profile
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
     echo $host_num > /user/data/zookeeper/data/myid 
     exec /usr/sbin/init 
