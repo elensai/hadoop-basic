@@ -13,7 +13,7 @@ questions:
 
 - variable: BasicConfig.StoragePath
   type: string
-  default: /nfsdata/prod-cluster/
+  default: /nfsdata/test137/
   group: "hadoop-basic"
   label: "NFS服务器路径(必须 / 结尾)"
 
@@ -55,7 +55,7 @@ questions:
 
 - variable: mysql-basic.BasicConfig.StoragePath
   type: string
-  default: /nfsdata/prod-cluster/
+  default: /nfsdata/test137/
   group: "mysql-basic"
   label: "NFS服务器路径(必须 / 结尾)"
 
