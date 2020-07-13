@@ -15,8 +15,6 @@ spec:
     - name: sh
       mountPath: /user/init.sh
       subPath: init.sh
-    # - name: vl
-    #   mountPath: /initdata
   volumes:
   - name: sh
     configMap:
@@ -24,7 +22,3 @@ spec:
       items:
       - key: initpsh-config
         path: init.sh
-  # - name: vl
-  #   persistentVolumeClaim:
-  #     claimName: init-vl-c
-
