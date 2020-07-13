@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Chart.Name }}-init"
+  labels:
+    app: "{{ .Chart.Name }}-init"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  "{{ .Chart.Name }}-init-pod"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}-init-pod"
+    spec:
+      containers:
+      - name: con
+        image: "{{ .Values.databaseimage }}:{{ .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "-c", "sh /user/init.sh"]
+        volumeMounts:
+        - name: sh
+          mountPath: /user/init.sh
+          subPath: init.sh
+      volumes:
+      - name: sh
+        configMap:
+          name: initpsh
+          items:
+          - key: initpsh-config
+            path: init.sh
