@@ -9,7 +9,7 @@ data:
     source /etc/profile
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
     echo $host_num > /user/data/zookeeper/data/myid
-    touch /user/nodes/num
-    echo $host_num > /user/nodes/num
+
+    ssh root@hadoop-basic-ss-0.ha-svc.hadoop-basic.svc.cluster.local
     exec /usr/sbin/init
     
