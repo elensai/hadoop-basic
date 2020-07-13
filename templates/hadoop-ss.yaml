@@ -73,6 +73,8 @@ spec:
         - name: init
           mountPath: /user/init.sh
           subPath: init.sh
+        - name: cache
+          mountPath: /user/nodes
         - name: {{ .Chart.Name }}
           mountPath: /user/data
       volumes:
@@ -160,13 +162,14 @@ spec:
           items:
           - key: oozie-site-config
             path: oozie-site.xml
+      - name: cache
+        emptyDir: {}
       - name: init
         configMap:
           name: initsh
           items:
           - key: initsh-config
             path: init.sh
-
   volumeClaimTemplates:
   - metadata:
       name: {{ .Chart.Name }}

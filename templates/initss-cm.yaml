@@ -8,6 +8,8 @@ data:
     #!/bin/bash
     source /etc/profile
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
-    echo $host_num > /user/data/zookeeper/data/myid 
+    echo $host_num > /user/data/zookeeper/data/myid
+    touch /user/nodes/num
+    echo $host_num > /user/nodes/num
     exec /usr/sbin/init
     
