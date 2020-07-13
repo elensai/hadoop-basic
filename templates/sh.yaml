@@ -9,5 +9,5 @@ data:
     source /etc/profile
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
     echo $host_num > /user/data/zookeeper/data/myid 
-    exec /usr/sbin/init 
-    echo 123456
+    exec /usr/sbin/init
+    
