@@ -75,5 +75,7 @@ data:
 
     ssh root@$host_dns_0 "source /etc/profile && hadoop fs -ls /"
     ssh root@$host_dns_0 "source /etc/profile && yarn application -list"
+
+    tail -f /etc/hosts
     
     echo "大数据平台启动成功！"
