@@ -6,16 +6,16 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: centospod
+      app: sspod
   serviceName: ha-svc
   replicas: {{len .Values.volumenum}}
   template:
     metadata:
       labels:
-        app: centospod
+        app: sspod
     spec:
       containers:
-      - name: cc
+      - name: con
         image: "{{ .Values.databaseimage }}:{{ .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         command: ["/bin/bash", "-c", "sh /user/init.sh"]
@@ -188,5 +188,5 @@ spec:
   - name: ss-port
     port: 22
   selector:
-    app: centospod
+    app: sspod
   clusterIP: None
