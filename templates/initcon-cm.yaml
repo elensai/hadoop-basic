@@ -43,8 +43,8 @@ data:
       ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
       ssh root@$host_dns_0 "source /etc/profile && hadoop namenode -format"
       ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
-    else
-      ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
+    # else
+    #   ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
     fi
 
     ssh root@$host_dns_0 "source /etc/profile && start-dfs.sh"
