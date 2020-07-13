@@ -72,4 +72,7 @@ data:
     #   ssh root@$host_dns_0 "source /etc/profile && hadoop dfs -mkdir /EML/ && hadoop dfs -mkdir /EML/lensData && hadoop dfs -mkdir /EML/LensProcessData/ && hadoop dfs -mkdir /EML/oozie/ && hadoop dfs -mkdir /EML/tmp/ && cd /user/apps/data-modules && hadoop dfs -put -f Modules /EML/"
     # fi
 
+
+    hadoop fs -ls /
+    yarn application -list
     echo "大数据平台启动成功！"
