@@ -12,7 +12,7 @@ BasicConfig:
   RootPasswd: ""
   ServicePort: ""
 
-databaseimage: registry.elensdata.com:333/apm/zhidatabase
+databaseimage: registry.elensdata.com:333/elensai/hadoop2
 
 volumenum:
 - num: "0"
