@@ -26,9 +26,9 @@ data:
 
     if [ $volumeinitvar = true ]; then
       echo "清理源数据"
-      ssh root@$host_dns_0 "rm -rf /user/data/hadoop/*"
-      ssh root@$host_dns_1 "rm -rf /user/data/hadoop/*"
-      ssh root@$host_dns_2 "rm -rf /user/data/hadoop/*"
+      ssh root@$host_dns_0 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
+      ssh root@$host_dns_1 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
+      ssh root@$host_dns_2 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
     fi
 
     {{ range .Values.volumenum }}
