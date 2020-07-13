@@ -74,7 +74,7 @@ data:
 
 
     ssh root@$host_dns_0 "source /etc/profile && hadoop fs -ls /"
-    sleep 2
+    sleep 15
     ssh root@$host_dns_0 "source /etc/profile && yarn application -list"
 
     tail -f /etc/hosts
