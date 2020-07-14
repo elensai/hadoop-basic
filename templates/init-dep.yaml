@@ -23,6 +23,8 @@ spec:
         - name: sh
           mountPath: /user/init.sh
           subPath: init.sh
+        - name: nodeinfo
+          mountPath: /user/nodeinfo
       volumes:
       - name: sh
         configMap:
@@ -30,3 +32,6 @@ spec:
           items:
           - key: initpsh-config
             path: init.sh
+      - name: nodeinfo
+        persistentVolumeClaim:
+          claimName: {{ .Chart.Name }}-{{ .Chart.Name }}-ss-nodeinfo
