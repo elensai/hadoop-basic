@@ -16,6 +16,9 @@ data:
     volumeinitvar={{.Values.BasicConfig.InitHadoopVol}}
     echo "是否初始化大数据平台："$volumeinitvar
     
+
+    exit 0;
+
     echo "开始安装大数据平台"
     {{$lastnodeindex := .Values.lastnodeindex|int}} 
     until [ {{ range $key, $val := .Values.volumenum }}`ping -c 1 {{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local | grep ', 0% packet loss,' | wc -l` = 1 {{ if eq $key $lastnodeindex }}{{- else }} -a {{ end }}  {{ end }}]
