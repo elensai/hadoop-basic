@@ -77,7 +77,12 @@ spec:
           mountPath: /user/nodes
         - name: {{ .Chart.Name }}
           mountPath: /user/data
+        - name: nodeinfo
+          mountPath: /user/nodeinfo
       volumes:
+      - name: nodeinfo
+        persistentVolumeClaim:
+          claimName: {{ .Chart.Name }}-{{ .Chart.Name }}-ss-nodeinfo
       - name: core-site
         configMap:
           name: core-site

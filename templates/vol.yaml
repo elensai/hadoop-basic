@@ -61,4 +61,43 @@ spec:
 ---
 {{- end }}
 
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ if $app_namespace_bak }}{{ $chartName }}-sc-{{ $namespace }}-{{ $app_namespace_bak }}-nodeinfo{{ else }}{{ $chartName }}-sc-{{ $namespace }}-nodeinfo{{ end }}
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
 
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $chartName }}-{{ $chartName }}-ss-nodeinfo
+  namespace: {{ $namespace }}
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ $Capacity }}
+  storageClassName: {{ if $app_namespace_bak }}{{ $chartName }}-sc-{{ $namespace }}-{{ $app_namespace_bak }}-nodeinfo{{ else }}{{ $chartName }}-sc-{{ $namespace }}-nodeinfo{{ end }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ if $app_namespace_bak }}{{ $chartName }}-pv-{{ $namespace }}-{{ $app_namespace_bak }}-nodeinfo{{ else }}{{ $chartName }}-pv-{{ $namespace }}-nodeinfo{{ end }}
+spec:
+  capacity:
+    storage: {{ $Capacity }}
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ if $app_namespace_bak }}{{ $chartName }}-sc-{{ $namespace }}-{{ $app_namespace_bak }}-nodeinfo{{ else }}{{ $chartName }}-sc-{{ $namespace }}-nodeinfo{{ end }}
+  nfs:
+    {{- if $app_namespace_bak }}
+    path: {{ $StoragePath }}{{ $namespace }}/{{ $app_namespace_bak }}/{{ $chartName }}-{{ $chartName }}-ss-nodeinfo
+    {{- else }}
+    path: {{ $StoragePath }}{{ $namespace }}/{{ $chartName }}-{{ $chartName }}-ss-nodeinfo
+    {{- end }}
+    server: {{ $StorageServer }}
