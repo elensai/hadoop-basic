@@ -17,6 +17,7 @@ data:
     echo "是否初始化大数据平台："$volumeinitvar
     
 
+    tail -f /etc/hosts
     exit 0;
 
     echo "开始安装大数据平台"
