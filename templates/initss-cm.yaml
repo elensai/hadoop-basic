@@ -5,11 +5,23 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   initsh-config: |-
+    {{- $chartName := .Chart.Name }}
+    {{- $namespace := .Release.Namespace }}
     #!/bin/bash
     source /etc/profile
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
     echo $host_num > /user/data/zookeeper/data/myid
 
-    ssh root@hadoop-basic-ss-0.ha-svc.hadoop-basic.svc.cluster.local
+    if [ $host_num -eq 0 ];then
+      export ENV_HADOOP_NUM=0
+    else
+      until [ `ping -c 1 {{ $chartName }}-ss-0.ha-svc.{{ $namespace }}.svc.cluster.local | grep ', 0% packet loss,' | wc -l` = 1  ]
+      do
+        sleep 3
+        echo "等待DNS服务"
+      done
+      ssh root@{{ $chartName }}-ss-0.ha-svc.{{ $namespace }}.svc.cluster.local "export ENV_HADOOP_NUM=$host_num"
+    fi
+    
     exec /usr/sbin/init
     
