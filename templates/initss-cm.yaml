@@ -20,7 +20,7 @@ data:
         sleep 3
         echo "等待DNS服务"
       done
-      ssh root@{{ $chartName }}-ss-0.ha-svc.{{ $namespace }}.svc.cluster.local "sed -i '/export ENV_HADOOP_NUM=/d' /etc/profile; echo 'export ENV_HADOOP_NUM="$host_num"' >> /etc/profile"
+      ssh root@{{ $chartName }}-ss-0.ha-svc.{{ $namespace }}.svc.cluster.local "if [ \`sed -n '/export ENV_HADOOP_NUM/p' /etc/profile | awk -F= '{print $2}'\` -lt "$host_num" ];then sed -i '/export ENV_HADOOP_NUM=/d' /etc/profile; echo 'export ENV_HADOOP_NUM="$host_num"' >> /etc/profile; fi"
     fi
     
     exec /usr/sbin/init
