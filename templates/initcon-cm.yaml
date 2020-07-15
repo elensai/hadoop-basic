@@ -13,6 +13,9 @@ data:
     host_dns_{{ .num }}="{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local"
     {{- end }}
 
+    HOST_S="{{ $chartName }}-ss-"
+    HOST_E=".ha-svc.{{ $namespace }}.svc.cluster.local"
+
     volumeinitvar={{.Values.BasicConfig.InitHadoopVol}}
     echo "是否初始化大数据平台："$volumeinitvar
 
@@ -76,7 +79,23 @@ data:
     ssh root@$host_dns_0 "source /etc/profile && hadoop fs -ls /"
     sleep 30
     ssh root@$host_dns_0 "source /etc/profile && yarn application -list"
-
-    tail -f /etc/hosts
     
     echo "大数据平台启动成功！"
+
+    # 启动监控
+    while true
+    do
+      sleep 3
+      num=`sed -n '/HADOOP_NUM=/p' /user/nodeinfo/nodenum | awk -F= '{print $2}'`
+
+      for((i=0;i<=num;i++));
+      do
+        # echo $HOST_S$i$HOST_E
+        host=$HOST_S$i$HOST_E
+        ssh $host "source /etc/profile && if [ `zkServer.sh status | grep 'Error' | wc -l` -eq 1 ];then sh /user/nodeinfo/r.sh; fi"
+
+      done
+
+    done
+
+

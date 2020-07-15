@@ -73,16 +73,23 @@ spec:
         - name: init
           mountPath: /user/init.sh
           subPath: init.sh
-        - name: cache
-          mountPath: /user/nodes
         - name: {{ .Chart.Name }}
           mountPath: /user/data
         - name: nodeinfo
           mountPath: /user/nodeinfo
+        - name: restartsh
+          mountPath: /user/nodeinfo/restart.sh
+          subPath: restart.sh
       volumes:
       - name: nodeinfo
         persistentVolumeClaim:
           claimName: {{ .Chart.Name }}-{{ .Chart.Name }}-ss-nodeinfo
+      - name: restartsh
+        configMap:
+          name: restartsh
+          items:
+            - key: restart-config
+              path: restart.sh
       - name: core-site
         configMap:
           name: core-site
@@ -167,8 +174,6 @@ spec:
           items:
           - key: oozie-site-config
             path: oozie-site.xml
-      - name: cache
-        emptyDir: {}
       - name: init
         configMap:
           name: initsh
