@@ -85,7 +85,7 @@ data:
     # 启动监控
     while true
     do
-      sleep 3
+      sleep 5
       num=`sed -n '/HADOOP_NUM=/p' /user/nodeinfo/nodenum | awk -F= '{print $2}'`
 
       for((i=0;i<=num;i++));
