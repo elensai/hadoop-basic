@@ -92,7 +92,7 @@ data:
       do
         # echo $HOST_S$i$HOST_E
         host=$HOST_S$i$HOST_E
-        ssh $host "source /etc/profile && if [ \`zkServer.sh status | grep 'Error' | wc -l\` -eq 1 ];then sh /user/nodeinfo/r.sh; fi"
+        ssh $host "source /etc/profile && if [ \`zkServer.sh status | grep 'Error' | wc -l\` -eq 1 ];then sh /user/nodeinfo/restart.sh; fi"
 
       done
 

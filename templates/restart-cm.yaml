@@ -36,7 +36,7 @@ data:
       hadoop-daemon.sh start datanode
       yarn-daemon.sh start nodemanager
       mr-jobhistory-daemon.sh start historyserver
-      start-history-server.sh
+      # start-history-server.sh
     else
         zkServer.sh start
         hadoop-daemon.sh start journalnode
