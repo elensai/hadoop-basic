@@ -60,7 +60,6 @@ data:
     # Folder containing extra ibraries required for hive compilation/execution can be controlled by:
     # export HIVE_AUX_JARS_PATH=
 
-
     # export JAVA_HOME=/user/apps/jdk1.8.0_131
     # export HADOOP_HOME=/user/apps/hadoop-2.7.0
     # export HIVE_HOME=/user/apps/hive-1.2.1/

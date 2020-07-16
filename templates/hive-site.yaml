@@ -41,3 +41,4 @@ data:
         <value>{{ .Values.BasicConfig.MysqlRootPasswd }}</value>
       </property>
     </configuration>
+

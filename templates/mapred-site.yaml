@@ -34,36 +34,13 @@ data:
 
       <property>  
             <name>mapreduce.jobhistory.address</name>  
-            <value>{{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:10020</value>  
+            <value>{{ $chartName }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:10020</value>  
       </property> 
-
 
       <property>  
           <name>mapreduce.jobhistory.webapp.address</name>
-          <value>{{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:19888</value>  
+          <value>{{ $chartName }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:19888</value>  
       </property>
-
-
-      <property>  
-          <name>mapreduce.jobhistory.intermediate-done-dir</name>
-          <value>/usr/hadoop/tmp/mr_history</value> 
-      </property>  
-
-      <property>  
-          <name>mapreduce.jobhistory.done-dir</name>  
-          <value>/usr/hadoop/tmp/mr_history</value> 
-      </property>
-
-      <property>
-            <name>mapreduce.reduce.shuffle.input.buffer.percent</name>
-            <value>0.6</value>
-      </property>
-
-        <property>
-            <name>mapreduce.reduce.shuffle.memory.limit.percent</name>
-            <value>0.10</value> 
-      </property>
-
 
     </configuration>
 

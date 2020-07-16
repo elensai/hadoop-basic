@@ -42,6 +42,16 @@ data:
       </property>
 
       <property>
+        <name>hbase.master</name>
+        <value>60000</value>
+      </property>
+
+      <property>
+        <name>hbase.tmp.dir</name>
+        <value>/user/data/hbase/tmp</value>
+      </property>
+
+      <property>
         <name>hbase.zookeeper.quorum</name>
         {{- $lastnodeindex := .Values.lastnodeindex|int}}
           {{ range $key, $val := .Values.volumenum }}
@@ -54,4 +64,19 @@ data:
             {{- end }}
           {{- end }}
       </property>
+
+      <property>
+        <name>hbase.zookeeper.property.dataDir</name>
+        <value>/user/data/zookeeper</value>
+      </property>
+
+      <property>
+        <name>hbase.zookeeper.property.clientPort</name>
+        <value>2181</value>
+      </property>
+
+      <property>
+        <name>hbase.master.maxclockskew</name>
+        <value>180000</value>
+      </property>  
     </configuration>

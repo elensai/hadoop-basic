@@ -93,7 +93,6 @@ data:
               <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
         </property>
 
-
         <property>
               <name>dfs.ha.fencing.methods</name>
               <value>sshfence</value>
@@ -122,7 +121,12 @@ data:
         <property>    
             <name>dfs.webhdfs.enabled</name>    
             <value>true</value>    
-        </property>    
+        </property>  
+
+        <property>    
+          <name>dfs.permissions.enable</name>    
+          <value>false</value> 
+        </property>   
         
     </configuration>
 

@@ -90,7 +90,6 @@ data:
     log4j.category.JPOX.General=ERROR,DRFA
     log4j.category.JPOX.Enhancer=ERROR,DRFA
 
-
     # Silence useless ZK logs
     log4j.logger.org.apache.zookeeper.server.NIOServerCnxn=WARN,DRFA
     log4j.logger.org.apache.zookeeper.ClientCnxnSocketNIO=WARN,DRFA

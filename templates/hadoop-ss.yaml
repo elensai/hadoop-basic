@@ -23,50 +23,56 @@ spec:
           privileged: true
         volumeMounts:
         - name: core-site
-          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/core-site.xml
+          mountPath: /user/apps/hadoop-2.7.2/etc/hadoop/core-site.xml
           subPath: core-site.xml
         - name: core-site
-          mountPath: /user/apps/hbase-1.4.4/conf/core-site.xml 
+          mountPath: /user/apps/hbase-1.2.0/conf/core-site.xml 
           subPath: core-site.xml
         - name: hdfs-site
-          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/hdfs-site.xml
+          mountPath: /user/apps/hadoop-2.7.2/etc/hadoop/hdfs-site.xml
           subPath: hdfs-site.xml
         - name: hdfs-site
-          mountPath: /user/apps/hbase-1.4.4/conf/hdfs-site.xml
+          mountPath: /user/apps/hbase-1.2.0/conf/hdfs-site.xml
           subPath: hdfs-site.xml
         - name: mapred-site
-          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/mapred-site.xml
+          mountPath: /user/apps/hadoop-2.7.2/etc/hadoop/mapred-site.xml
           subPath: mapred-site.xml
         - name: yarn-site
-          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/yarn-site.xml
+          mountPath: /user/apps/hadoop-2.7.2/etc/hadoop/yarn-site.xml
           subPath: yarn-site.xml
         - name: slaves
-          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/slaves
+          mountPath: /user/apps/hadoop-2.7.2/etc/hadoop/slaves
           subPath: slaves
         - name: sparkenv
           mountPath: /user/apps/spark-2.3.4/conf/spark-env.sh
           subPath: spark-env.sh
+        - name: spark-defaults
+          mountPath: /user/apps/spark-2.3.4/conf/spark-defaults.conf
+          subPath: spark-defaults.conf
         - name: zoocfg
           mountPath: /user/apps/zookeeper-3.4.12/conf/zoo.cfg
           subPath: zoo.cfg
         - name: hadoop-env
-          mountPath: /user/apps/hadoop-2.7.1/etc/hadoop/hadoop-env.sh
+          mountPath: /user/apps/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
           subPath: hadoop-env.sh
         - name: hive-site
-          mountPath: /user/apps/hive-1.2.1/conf/hive-site.xml
+          mountPath: /user/apps/hive-1.2.2/conf/hive-site.xml
           subPath: hive-site.xml
         - name: hive-log4j
-          mountPath: /user/apps/hive-1.2.1/conf/hive-log4j.properties 
+          mountPath: /user/apps/hive-1.2.2/conf/hive-log4j.properties 
           subPath: hive-log4j.properties 
         - name: hive-env
-          mountPath: /user/apps/hive-1.2.1/conf/hive-env.sh
+          mountPath: /user/apps/hive-1.2.2/conf/hive-env.sh
           subPath: hive-env.sh
         - name: hbase-env
-          mountPath: /user/apps/hbase-1.4.4/conf/hbase-env.sh
+          mountPath: /user/apps/hbase-1.2.0/conf/hbase-env.sh
           subPath: hbase-env.sh
         - name: hbase-site
-          mountPath: /user/apps/hbase-1.4.4/conf/hbase-site.xml
+          mountPath: /user/apps/hbase-1.2.0/conf/hbase-site.xml
           subPath: hbase-site.xml
+        - name: flink-conf
+          mountPath: /user/apps/flink-1.9.1/conf/flink-conf.yaml
+          subPath: flink-conf.yaml
         - name: oozie-site
           mountPath: /user/apps/oozie-4.0.0/conf/oozie-site.xml
           subPath: oozie-site.xml
@@ -126,6 +132,12 @@ spec:
           items:
           - key: sparkenv-config
             path: spark-env.sh
+      - name: spark-defaults
+        configMap:
+          name: spark-defaults
+          items:
+          - key: spark-defaults
+            path: spark-defaults.conf
       - name: zoocfg
         configMap:
           name: zoocfg
@@ -174,6 +186,12 @@ spec:
           items:
           - key: oozie-site-config
             path: oozie-site.xml
+      - name: flink-conf
+        configMap: flink-conf
+          name: flink-conf
+          items:
+          - key: flink-conf
+            path: flink-conf.yaml
       - name: init
         configMap:
           name: initsh

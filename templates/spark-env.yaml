@@ -76,8 +76,8 @@ data:
     # - OPENBLAS_NUM_THREADS=1   Disable multi-threading of OpenBLAS
 
 
-    export JAVA_HOME=/user/apps/jdk1.8.0_131
+    export JAVA_HOME=/user/apps/jdk1.8.0_191
     export SCALA_HOME=/user/apps/scala-2.11.8
-    export HADOOP_HOME=/user/apps/hadoop-2.7.1
-    export HADOOP_CONF_DIR=/user/apps/hadoop-2.7.1/etc/hadoop
+    export HADOOP_HOME=/user/apps/hadoop-2.7.2
+    export HADOOP_CONF_DIR=/user/apps/hadoop-2.7.2/etc/hadoop
 

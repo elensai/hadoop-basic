@@ -247,7 +247,7 @@ data:
 
         <property>
             <name>oozie.service.HadoopAccessorService.hadoop.configurations</name>
-            <value>*=/user/apps/hadoop-2.7.1/etc/hadoop</value>
+            <value>*=/user/apps/hadoop-2.7.2/etc/hadoop</value>
             <description>
                 Comma separated AUTHORITY=HADOOP_CONF_DIR, where AUTHORITY is the HOST:PORT of
                 the Hadoop service (JobTracker, HDFS). The wildcard '*' configuration is
