@@ -32,7 +32,7 @@ data:
     # spark.driver.memory              5g
     # spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
-    spark.yarn.historyServer.address={{ $chartName }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:18080
+    spark.yarn.historyServer.address={{ .Chart.Name }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:18080
     spark.yarn.historyServer.allowTracking=true
     spark.eventLog.dir=hdfs://ns/log/spark/eventlogs
     spark.eventLog.enabled=true
