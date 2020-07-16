@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flink-conf-cm
+  name: flink-conf
   namespace: {{ .Release.Namespace }}
 data:
   flink-conf: |-
