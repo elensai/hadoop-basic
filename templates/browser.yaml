@@ -1,15 +1,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hdfs-browser0
+  name: browser0-svc
   labels:
-    dep: hdfs-browser
+    dep: browser0-svc
 spec:
   type: NodePort
   ports:
-    - name: hdfs
+    - name: hdfs-b
       port: 50070
       targetPort: 50070
+    - name: hdfs-d
+      port: 50075
+      targetPort: 50075
+    - name: yarn
+      port: 8088
+      targetPort: 8088
+    - name: yarn-n
+      port: 8042
+      targetPort: 8042
+    - name: hbase
+      port: 16010
+      targetPort: 16010
+
     - name: tomcat
       port: 8080
       targetPort: 8080
@@ -22,55 +35,24 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hdfs-browser1
+  name: browser1-svc
   labels:
-    dep: hdfs-browser
+    dep: browser1-svc
 spec:
   type: NodePort
   ports:
-    - name: hdfs
-      port: 50070
-      targetPort: 50070
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: spark-browser
-  labels:
-    dep: spark-browser
-spec:
-  type: NodePort
-  ports:
-    - name: sparkui
-      port: 7180
-      targetPort: 7180
-    - name: sparkhis1
-      port: 18080
-      targetPort: 18080
-    - name: sparkhis2
-      port: 18089
-      targetPort: 18089
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: yarn-browser1
-  labels:
-    dep: yarn-browser
-spec:
-  type: NodePort
-  ports:
+    - name: hdfs-d
+      port: 50075
+      targetPort: 50075
     - name: yarn
       port: 8088
       targetPort: 8088
+    - name: yarn-n
+      port: 8042
+      targetPort: 8042
+    - name: oozie
+      port: 11000
+      targetPort: 11000
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 
@@ -79,48 +61,140 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: yarn-browser2
+  name: browser2-svc
   labels:
-    dep: yarn-browser
+    dep: browser2-svc
 spec:
   type: NodePort
   ports:
-    - name: yarn
-      port: 8088
-      targetPort: 8088
+    - name: hdfs-b
+      port: 50070
+      targetPort: 50070
+    - name: hdfs-d
+      port: 50075
+      targetPort: 50075
+    - name: yarn-n
+      port: 8042
+      targetPort: 8042
+    - name: yarn-history
+      port: 19888
+      targetPort: 19888
+    - name: spark-history
+      port: 18080
+      targetPort: 18080
+    - name: flink-history
+      port: 8082
+      targetPort: 8082
+    - name: hbase
+      port: 16010
+      targetPort: 16010
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 
----
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: history-browser
-  labels:
-    dep: history-browser
-spec:
-  type: NodePort
-  ports:
-    - name: history
-      port: 19888
-      targetPort: 19888
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 
----
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: oozie-browser
-  labels:
-    dep: oozie-browser
-spec:
-  type: NodePort
-  ports:
-    - name: oozie
-      port: 11000
-      targetPort: 11000
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: spark-browser
+#   labels:
+#     dep: spark-browser
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: sparkui
+#       port: 7180
+#       targetPort: 7180
+#     - name: sparkhis1
+#       port: 18080
+#       targetPort: 18080
+#     - name: sparkhis2
+#       port: 18089
+#       targetPort: 18089
+#   selector:
+#     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: yarn-browser1
+#   labels:
+#     dep: yarn-browser
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: yarn
+#       port: 8088
+#       targetPort: 8088
+#   selector:
+#     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: yarn-browser2
+#   labels:
+#     dep: yarn-browser
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: yarn
+#       port: 8088
+#       targetPort: 8088
+#   selector:
+#     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: history-browser
+#   labels:
+#     dep: history-browser
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: history
+#       port: 19888
+#       targetPort: 19888
+#   selector:
+#     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: oozie-browser
+#   labels:
+#     dep: oozie-browser
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: oozie
+#       port: 11000
+#       targetPort: 11000
+#   selector:
+#     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
