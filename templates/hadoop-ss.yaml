@@ -70,6 +70,9 @@ spec:
         - name: hbase-site
           mountPath: /user/apps/hbase-1.2.0/conf/hbase-site.xml
           subPath: hbase-site.xml
+        - name: hbase-regionservers
+          mountPath: /user/apps/hbase-1.2.0/conf/regionservers
+          subPath: regionservers
         - name: flink-conf
           mountPath: /user/apps/flink-1.9.1/conf/flink-conf.yaml
           subPath: flink-conf.yaml
@@ -180,6 +183,12 @@ spec:
           items:
           - key: hbase-site-config
             path: hbase-site.xml
+      - name: hbase-regionservers
+        configMap:
+          name: hbase-regionservers
+          items:
+          - key: hbase-regionservers
+            path: regionservers
       - name: oozie-site
         configMap:
           name: oozie-site

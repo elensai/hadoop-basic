@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hbase-regionservers
+  namespace: {{ .Release.Namespace }}
+data:
+  hbase-regionservers: |-
+    {{- range .Values.volumenum}}
+    {{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local
+    {{- end }}
