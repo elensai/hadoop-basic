@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   hbase-regionservers: |-
+    {{- $chartName := .Chart.Name }}
+    {{- $namespace := .Release.Namespace }}
     {{- range .Values.volumenum}}
     {{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local
     {{- end }}
