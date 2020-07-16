@@ -187,7 +187,7 @@ spec:
           - key: oozie-site-config
             path: oozie-site.xml
       - name: flink-conf
-        configMap: flink-conf
+        configMap: flink-conf-cm
           name: flink-conf
           items:
           - key: flink-conf
