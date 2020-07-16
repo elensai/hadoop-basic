@@ -269,7 +269,7 @@ data:
     jobmanager.archive.fs.dir: hdfs://ns/flink/history/
 
     # The address under which the web-based HistoryServer listens.
-    historyserver.web.address: {{ $chartName }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local
+    historyserver.web.address: {{ .Chart.Name }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local
 
     # The port under which the web-based HistoryServer listens.
     historyserver.web.port: 8082
