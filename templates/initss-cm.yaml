@@ -10,7 +10,8 @@ data:
     #!/bin/bash
     source /etc/profile
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
-    echo $host_num > /user/data/zookeeper/data/myid
+    mkdir -p /user/data/zookeeper
+    echo $host_num > /user/data/zookeeper/myid
     touch /user/nodeinfo/nodenum
     if [ `sed -n '/HADOOP_NUM=/p' /user/nodeinfo/nodenum |awk -F= '{print $2}'` -lt $host_num ];then sed -i '/HADOOP_NUM=/d' /user/nodeinfo/nodenum;echo "HADOOP_NUM=$host_num" >> /user/nodeinfo/nodenum;else echo "RESTART_NODE=$host_num" >> /user/nodeinfo/nodenum; fi
     exec /usr/sbin/init

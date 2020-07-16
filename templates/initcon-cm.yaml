@@ -16,9 +16,6 @@ data:
     HOST_S="{{ $chartName }}-ss-"
     HOST_E=".ha-svc.{{ $namespace }}.svc.cluster.local"
 
-    volumeinitvar={{.Values.BasicConfig.InitHadoopVol}}
-    echo "是否初始化大数据平台："$volumeinitvar
-
     echo "开始安装大数据平台"
     {{$lastnodeindex := .Values.lastnodeindex|int}} 
     until [ {{ range $key, $val := .Values.volumenum }}`ping -c 1 {{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local | grep ', 0% packet loss,' | wc -l` = 1 {{ if eq $key $lastnodeindex }}{{- else }} -a {{ end }}  {{ end }}]
@@ -27,33 +24,63 @@ data:
       echo "等待DNS服务"
     done
 
-    if [ $volumeinitvar = true ]; then
-      echo "清理源数据"
-      ssh root@$host_dns_0 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
-      ssh root@$host_dns_1 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
-      ssh root@$host_dns_2 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
-    fi
-
+    # 启动 zookeeper
     {{ range .Values.volumenum }}
     ssh root@$host_dns_{{ .num }} "source /etc/profile && zkServer.sh start"
     {{- end }}
 
-    ssh root@$host_dns_0 "source /etc/profile && hadoop-daemons.sh start journalnode"      
-    
-
-    if [ $volumeinitvar = true ]; then
-      echo "初始化hdfs"
-      ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
-      ssh root@$host_dns_0 "source /etc/profile && hadoop namenode -format"
-      ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
-    # else
-    #   ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
-    fi
+    # 启动 hadoop
+    ssh root@$host_dns_0 "source /etc/profile && hadoop-daemons.sh start journalnode"  
+    ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"   
+    ssh root@$host_dns_0 "source /etc/profile && hadoop namenode -format" 
+    ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
 
     ssh root@$host_dns_0 "source /etc/profile && start-dfs.sh"
-    ssh root@$host_dns_1 "source /etc/profile && start-yarn.sh"
-    ssh root@$host_dns_2 "source /etc/profile && yarn-daemon.sh start resourcemanager"
-    ssh root@$host_dns_0 "source /etc/profile && mr-jobhistory-daemon.sh start historyserver"
+    ssh root@$host_dns_0 "source /etc/profile && start-yarn.sh"
+    ssh root@$host_dns_1 "source /etc/profile && yarn-daemon.sh start resourcemanager"
+    ssh root@$host_dns_2 "source /etc/profile && mr-jobhistory-daemon.sh start historyserver"
+
+    # 启动 hbase
+    ssh root@$host_dns_0 "source /etc/profile && start-hbase.sh"
+    ssh root@$host_dns_2 "source /etc/profile && hbase-daemon.sh start master"
+
+    # 启动 spark
+    ssh root@$host_dns_0 “source /etc/profile && hadoop fs -mkdir -p hdfs://ns/log/spark/eventlogs && hadoop fs -mkdir -p hdfs://ns/spark_jars/ && hadoop fs -put $SPARK_HOME/jars/*  hdfs://ns/spark_jars/”
+    ssh root@$host_dns_2 "source /etc/profile && start-history-server.sh"
+
+    # 启动 flink
+    ssh root@$host_dns_2 "source /etc/profile && historyserver.sh start"
+
+    # 启动 oozie
+    ssh root@$host_dns_1 “source /etc/profile && oozie-setup.sh prepare-war sharelib create -fs hdfs://ns -locallib $OOZIE_HOME/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz && ooziedb.sh create -sqlfile oozie.sql -run DB Connection && oozied.sh start”
+
+
+
+
+    # ############################################################
+    # volumeinitvar={{.Values.BasicConfig.InitHadoopVol}}
+    # echo "是否初始化大数据平台："$volumeinitvar
+
+    # if [ $volumeinitvar = true ]; then
+    #   echo "清理源数据"
+    #   ssh root@$host_dns_0 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
+    #   ssh root@$host_dns_1 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
+    #   ssh root@$host_dns_2 "rm -rf /user/data/hadoop/* && rm -rf /user/data/zookeeper/data/zookeeper_server.pid && rm -rf /user/data/zookeeper/data/version-2"
+    # fi
+
+    # if [ $volumeinitvar = true ]; then
+    #   echo "初始化hdfs"
+    #   ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
+    #   ssh root@$host_dns_0 "source /etc/profile && hadoop namenode -format"
+    #   ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
+    # # else
+    # #   ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"
+    # fi
+
+    # ssh root@$host_dns_0 "source /etc/profile && start-dfs.sh"
+    # ssh root@$host_dns_1 "source /etc/profile && start-yarn.sh"
+    # ssh root@$host_dns_2 "source /etc/profile && yarn-daemon.sh start resourcemanager"
+    # ssh root@$host_dns_0 "source /etc/profile && mr-jobhistory-daemon.sh start historyserver"
     
 
 
@@ -76,26 +103,28 @@ data:
     # fi
 
 
-    ssh root@$host_dns_0 "source /etc/profile && hadoop fs -ls /"
+    # ssh root@$host_dns_0 "source /etc/profile && hadoop fs -ls /"
     # sleep 30
     # ssh root@$host_dns_0 "source /etc/profile && yarn application -list"
     
     echo "大数据平台启动成功！"
 
     # 启动监控
-    while true
-    do
-      sleep 5
-      num=`sed -n '/HADOOP_NUM=/p' /user/nodeinfo/nodenum | awk -F= '{print $2}'`
+    # while true
+    # do
+    #   sleep 5
+    #   num=`sed -n '/HADOOP_NUM=/p' /user/nodeinfo/nodenum | awk -F= '{print $2}'`
 
-      for((i=0;i<=num;i++));
-      do
-        # echo $HOST_S$i$HOST_E
-        host=$HOST_S$i$HOST_E
-        ssh $host "source /etc/profile && if [ \`zkServer.sh status | grep 'Error' | wc -l\` -eq 1 ];then sh /user/nodeinfo/restart.sh; fi"
+    #   for((i=0;i<=num;i++));
+    #   do
+    #     # echo $HOST_S$i$HOST_E
+    #     host=$HOST_S$i$HOST_E
+    #     ssh $host "source /etc/profile && if [ \`zkServer.sh status | grep 'Error' | wc -l\` -eq 1 ];then sh /user/nodeinfo/restart.sh; fi"
 
-      done
+    #   done
 
-    done
+    # done
+
+    tail -f /etc/hosts
 
 
