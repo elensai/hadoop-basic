@@ -48,10 +48,10 @@ data:
     ssh root@$host_dns_2 "source /etc/profile && start-history-server.sh"
 
     # # 启动 flink
-    # ssh root@$host_dns_2 "source /etc/profile && historyserver.sh start"
+    ssh root@$host_dns_2 "source /etc/profile && historyserver.sh start"
 
     # # 启动 oozie
-    # ssh root@$host_dns_1 “source /etc/profile && oozie-setup.sh prepare-war sharelib create -fs hdfs://ns -locallib $OOZIE_HOME/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz && ooziedb.sh create -sqlfile oozie.sql -run DB Connection && oozied.sh start”
+    ssh root@$host_dns_1 “source /etc/profile && oozie-setup.sh prepare-war sharelib create -fs hdfs://ns -locallib $OOZIE_HOME/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz && ooziedb.sh create -sqlfile oozie.sql -run DB Connection && oozied.sh start”
 
     # # spark other
     # sleep 20
