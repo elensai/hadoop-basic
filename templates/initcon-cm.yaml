@@ -47,7 +47,8 @@ data:
     # 启动 spark
     ssh root@$host_dns_2 "source /etc/profile && start-history-server.sh"
 
-    # # 启动 flink
+    # # 启动 flink  
+    ssh root@$host_dns_2 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/flink/history"
     ssh root@$host_dns_2 "source /etc/profile && historyserver.sh start"
 
     # # 启动 oozie
