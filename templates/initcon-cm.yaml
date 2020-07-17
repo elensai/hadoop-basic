@@ -31,9 +31,15 @@ data:
 
     # 启动 hadoop
     ssh root@$host_dns_0 "source /etc/profile && hadoop-daemons.sh start journalnode"  
-    ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK"   
-    ssh root@$host_dns_0 "source /etc/profile && hadoop namenode -format" 
-    ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
+
+    # 首次执行
+    #### ssh root@$host_dns_0 "source /etc/profile && hdfs zkfc -formatZK" 
+    ssh root@$host_dns_0 "sh /user/nodeinfo/start.sh zkfc"
+
+    # 首次执行
+    #### ssh root@$host_dns_0 "source /etc/profile && hadoop namenode -format" 
+    #### ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
+    ssh root@$host_dns_0 "sh /user/nodeinfo/start.sh nnfc {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local"
 
     ssh root@$host_dns_0 "source /etc/profile && start-dfs.sh"
     ssh root@$host_dns_0 "source /etc/profile && start-yarn.sh"
@@ -46,16 +52,33 @@ data:
 
     sleep 15
 
-    # # 启动 flink  
-    ssh root@$host_dns_2 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/flink/history"
+    # 启动 flink  
+    # 首次执行
+    #### ssh root@$host_dns_2 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/flink/history"
+    ssh root@$host_dns_2 "sh /user/nodeinfo/start.sh flink"
+
     ssh root@$host_dns_2 "source /etc/profile && historyserver.sh start"
 
-    # # 启动 oozie
-    ssh root@$host_dns_1 "source /etc/profile && (oozie-setup.sh prepare-war sharelib create -fs hdfs://ns -locallib \$OOZIE_HOME/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz) && (ooziedb.sh create -sqlfile oozie.sql -run DB Connection && oozied.sh start)"
+    # 启动 oozie
+    # 首次执行
+    #### ssh root@$host_dns_1 "source /etc/profile && (oozie-setup.sh prepare-war sharelib create -fs hdfs://ns -locallib \$OOZIE_HOME/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz) && (ooziedb.sh create -sqlfile oozie.sql -run DB Connection && oozied.sh start)"
+    ssh root@$host_dns_1 "sh /user/nodeinfo/start.sh oozie"
 
     # 启动 spark
-    ssh root@$host_dns_0 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/log/spark/eventlogs && hadoop fs -mkdir -p hdfs://ns/spark_jars/ && hadoop fs -put \$SPARK_HOME/jars/*  hdfs://ns/spark_jars/" 
+    # 首次执行
+    #### ssh root@$host_dns_0 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/log/spark/eventlogs && hadoop fs -mkdir -p hdfs://ns/spark_jars/ && hadoop fs -put \$SPARK_HOME/jars/*  hdfs://ns/spark_jars/" 
+    ssh root@$host_dns_0 "sh /user/nodeinfo/start.sh spark"
+
     ssh root@$host_dns_2 "source /etc/profile && start-history-server.sh"
+
+
+
+
+
+
+
+
+
 
 
     # ############################################################
