@@ -44,8 +44,7 @@ data:
     ssh root@$host_dns_0 "source /etc/profile && start-hbase.sh"
     ssh root@$host_dns_2 "source /etc/profile && hbase-daemon.sh start master"
 
-    # 启动 spark
-    ssh root@$host_dns_2 "source /etc/profile && start-history-server.sh"
+    sleep 15
 
     # # 启动 flink  
     ssh root@$host_dns_2 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/flink/history"
@@ -54,9 +53,9 @@ data:
     # # 启动 oozie
     ssh root@$host_dns_1 "source /etc/profile && (oozie-setup.sh prepare-war sharelib create -fs hdfs://ns -locallib \$OOZIE_HOME/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz) && (ooziedb.sh create -sqlfile oozie.sql -run DB Connection && oozied.sh start)"
 
-    # spark other
-    sleep 20
-    ssh root@$host_dns_0 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/log/spark/eventlogs && hadoop fs -mkdir -p hdfs://ns/spark_jars/ && hadoop fs -put \$SPARK_HOME/jars/*  hdfs://ns/spark_jars/"
+    # 启动 spark
+    ssh root@$host_dns_0 "source /etc/profile && hadoop fs -mkdir -p hdfs://ns/log/spark/eventlogs && hadoop fs -mkdir -p hdfs://ns/spark_jars/ && hadoop fs -put \$SPARK_HOME/jars/*  hdfs://ns/spark_jars/" 
+    ssh root@$host_dns_2 "source /etc/profile && start-history-server.sh"
 
 
     # ############################################################
