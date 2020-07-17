@@ -46,11 +46,13 @@ data:
     ssh root@$host_dns_1 "source /etc/profile && yarn-daemon.sh start resourcemanager"
     ssh root@$host_dns_2 "source /etc/profile && mr-jobhistory-daemon.sh start historyserver"
 
+
+    tail -f /etc/hosts
+
     # 启动 hbase
     ssh root@$host_dns_0 "source /etc/profile && start-hbase.sh"
     ssh root@$host_dns_2 "source /etc/profile && hbase-daemon.sh start master"
 
-    tail -f /etc/hosts
 
     sleep 15
 
