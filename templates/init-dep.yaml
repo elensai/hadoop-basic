@@ -40,7 +40,7 @@ spec:
       - name: testsh
         configMap:
           name: inittestsh
-          defaultMode: "0777"
+          defaultMode: 0777
           items:
           - key: inittestsh-config
             path: start.sh
