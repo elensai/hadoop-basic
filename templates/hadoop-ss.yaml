@@ -86,6 +86,8 @@ spec:
           mountPath: /user/data
         - name: nodeinfo
           mountPath: /user/nodeinfo
+        - name: testsh
+          mountPath: /user/apps/start.sh
         - name: restartsh
           mountPath: /user/nodeinfo/restart.sh
           subPath: restart.sh
@@ -201,6 +203,13 @@ spec:
           items:
           - key: flink-conf
             path: flink-conf.yaml
+      - name: testsh
+        configMap:
+          name: inittestsh
+          defaultMode: 0777
+          items:
+          - key: inittestsh-config
+            path: start.sh
       - name: init
         configMap:
           name: initsh

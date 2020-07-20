@@ -1,5 +1,15 @@
 #!/bin/bash
 
+
+host_dns=( "hadoop-basic-ss-0.ha-svc.default.svc.cluster.local" "hadoop-basic-ss-1.ha-svc.default.svc.cluster.local" "hadoop-basic-ss-2.ha-svc.default.svc.cluster.local" )
+
+    for i in "${host_dns[@]}"
+    do
+      echo $i
+    done
+
+exit 0 
+
 source /etc/profile
 
 case $1 in
