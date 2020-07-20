@@ -8,7 +8,7 @@ data:
     {{- $app_namespace_bak := .Values.global.app_namespace_bak }}
     {{- $chartName := .Chart.Name }}
     {{- $namespace := .Release.Namespace }}
-    {{ $nodeReplicaCount := .Values.ReplicaCount | default 3 }}
+    {{- $nodeReplicaCount := .Values.ReplicaCount | default 3 }}
     #!/bin/bash
     echo `date` >> /user/b.txt
     # host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
