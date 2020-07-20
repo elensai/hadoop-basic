@@ -9,6 +9,7 @@ data:
     {{- $chartName := .Chart.Name }}
     {{- $namespace := .Release.Namespace }}
     #!/bin/bash
+    echo `date`
     {{ range .Values.volumenum }}
     host_dns_{{ .num }}="{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local"
     {{- end }}
@@ -77,9 +78,9 @@ data:
 
     ssh root@$host_dns_2 "source /etc/profile && start-history-server.sh"
 
+    echo "大数据平台启动成功！"`date`
 
-
-
+    tail -f /etc/hosts
 
 
 
@@ -137,7 +138,7 @@ data:
     # sleep 30
     # ssh root@$host_dns_0 "source /etc/profile && yarn application -list"
     
-    echo "大数据平台启动成功！"
+    
 
     # 启动监控
     # while true
@@ -155,6 +156,5 @@ data:
 
     # done
 
-    tail -f /etc/hosts
 
 
