@@ -62,5 +62,5 @@ data:
       historyserver.sh start
       start-history-server.sh
     else
-
+      echo 'other'
     fi
