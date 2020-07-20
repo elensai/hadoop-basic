@@ -7,5 +7,5 @@ data:
   inittestsh-config: |-
     #!/bin/bash
     touch /user/b.txt
-    echo `date` >> b.txt
+    echo `date` >> /user/b.txt
     
