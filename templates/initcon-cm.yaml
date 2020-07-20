@@ -41,7 +41,7 @@ data:
     #### ssh root@$host_dns_2 "scp -r {{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:/user/data/hadoop/hdfs /user/data/hadoop/"
     ssh root@$host_dns_0 "sh /user/nodeinfo/start.sh nnfc {{ $chartName }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local"
 
-    tail -f /etc/hosts
+
 
     ssh root@$host_dns_0 "source /etc/profile && start-dfs.sh"
     ssh root@$host_dns_0 "source /etc/profile && start-yarn.sh"
