@@ -11,32 +11,32 @@ data:
     {{- $nodeReplicaCount := .Values.ReplicaCount | default 3 }}
     #!/bin/bash
     echo `date` >> /user/b.txt
-    # host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
-    # mkdir -p /user/data/zookeeper
-    # echo $host_num > /user/data/zookeeper/myid;
+    host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
+    mkdir -p /user/data/zookeeper
+    echo $host_num > /user/data/zookeeper/myid;
 
-    # {{ range $nodecount, $e := until ($nodeReplicaCount|int) }}
-    #   {{- if eq $nodecount 0 }}
-    # host_dns=( "{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local"
-    #   {{- else if eq $nodecount (sub $nodeReplicaCount 1)}}
-    #     {{- " " }}"{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local" )
-    #   {{- else}}
-    #     {{- " " }}"{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local"
-    #   {{- end }}
-    # {{- end }}
+    {{ range $nodecount, $e := until ($nodeReplicaCount|int) }}
+      {{- if eq $nodecount 0 }}
+    host_dns=( "{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local"
+      {{- else if eq $nodecount (sub $nodeReplicaCount 1)}}
+        {{- " " }}"{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local" )
+      {{- else}}
+        {{- " " }}"{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local"
+      {{- end }}
+    {{- end }}
 
-    # {{ range $nodecount, $e := until ($nodeReplicaCount|int) }}
-    #   host_dns_{{ $nodecount }}="{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local"
-    # {{- end }}
+    {{ range $nodecount, $e := until ($nodeReplicaCount|int) }}
+      host_dns_{{ $nodecount }}="{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local"
+    {{- end }}
     
-    # until [ {{ range $key, $val := until ($nodeReplicaCount|int) }}`ping -c 1 {{ $chartName }}-ss-{{ $key }}.ha-svc.{{ $namespace }}.svc.cluster.local | grep ', 0% packet loss,' | wc -l` = 1 {{ if eq $key (sub $nodeReplicaCount 1) }}{{- else }} -a {{ end }}  {{ end }}]
-    # do
-    #   sleep 3
-    #   echo "等待DNS服务"
-    # done
-    # for i in "${host_dns[@]}"
-    # do
-    #   echo $i
-    #   ssh root@$i "source /etc/profile && zkServer.sh start"
-    # done
+    until [ {{ range $key, $val := until ($nodeReplicaCount|int) }}`ping -c 1 {{ $chartName }}-ss-{{ $key }}.ha-svc.{{ $namespace }}.svc.cluster.local | grep ', 0% packet loss,' | wc -l` = 1 {{ if eq $key (sub $nodeReplicaCount 1) }}{{- else }} -a {{ end }}  {{ end }}]
+    do
+      sleep 3
+      echo "等待DNS服务"
+    done
+    for i in "${host_dns[@]}"
+    do
+      echo $i
+      ssh root@$i "source /etc/profile && zkServer.sh start"
+    done
 
