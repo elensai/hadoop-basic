@@ -88,6 +88,7 @@ spec:
           mountPath: /user/nodeinfo
         - name: testsh
           mountPath: /user/apps/start.sh
+          subPath: start.sh
         - name: restartsh
           mountPath: /user/nodeinfo/restart.sh
           subPath: restart.sh
