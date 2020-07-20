@@ -18,7 +18,7 @@ spec:
       - name: con
         image: "{{ .Values.databaseimage }}:{{ .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
-        command: ["/bin/bash", "-c", "sh /user/init.sh"]
+        # command: ["/bin/bash", "-c", "sh /user/init.sh"]
         securityContext:
           privileged: true
         volumeMounts:
@@ -79,9 +79,9 @@ spec:
         - name: oozie-site
           mountPath: /user/apps/oozie-4.0.0/conf/oozie-site.xml
           subPath: oozie-site.xml
-        - name: init
-          mountPath: /user/init.sh
-          subPath: init.sh
+        # - name: init
+        #   mountPath: /user/init.sh
+        #   subPath: init.sh
         - name: {{ .Chart.Name }}
           mountPath: /user/data
         - name: nodeinfo
@@ -211,12 +211,12 @@ spec:
           items:
           - key: inittestsh-config
             path: start.sh
-      - name: init
-        configMap:
-          name: initsh
-          items:
-          - key: initsh-config
-            path: init.sh
+      # - name: init
+      #   configMap:
+      #     name: initsh
+      #     items:
+      #     - key: initsh-config
+      #       path: init.sh
   volumeClaimTemplates:
   - metadata:
       name: {{ .Chart.Name }}
