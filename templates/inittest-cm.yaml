@@ -47,7 +47,7 @@ data:
       sh /user/nodeinfo/start.sh nnfc $host_dns_2
       start-dfs.sh
       start-yarn.sh
-      ssh host_dns_1 "source /etc/profile && yarn-daemon.sh start resourcemanager"
+      ssh $host_dns_1 "source /etc/profile && yarn-daemon.sh start resourcemanager"
       start-hbase.sh
       sh /user/nodeinfo/start.sh spark
     elif [ $host_num -eq 1 ];then
