@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: inittestsh
+  namespace: {{ .Release.Namespace }}
+data:
+  inittestsh-config: |-
+    #!/bin/bash
+    touch /user/b.txt
+    echo `date` >> b.txt
+    

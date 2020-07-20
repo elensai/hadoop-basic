@@ -18,11 +18,16 @@ spec:
       - name: con
         image: "{{ .Values.databaseimage }}:{{ .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
-        command: ["/bin/bash", "-c", "sh /user/init.sh"]
+        securityContext:
+          privileged: true
+        # command: ["/bin/bash", "-c", "sh /user/init.sh"]
         volumeMounts:
         - name: sh
           mountPath: /user/init.sh
           subPath: init.sh
+        - name: testsh
+          mountPath: /user/apps/start.sh
+          subPath: start.sh
         - name: nodeinfo
           mountPath: /user/nodeinfo
       volumes:
@@ -32,6 +37,12 @@ spec:
           items:
           - key: initpsh-config
             path: init.sh
+      - name: testsh
+        configMap:
+          name: inittestsh
+          items:
+          - key: inittestsh-config
+            path: start.sh
       - name: nodeinfo
         persistentVolumeClaim:
           claimName: {{ .Chart.Name }}-{{ .Chart.Name }}-ss-nodeinfo
