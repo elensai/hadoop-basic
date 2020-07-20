@@ -10,6 +10,7 @@ data:
     {{- $namespace := .Release.Namespace }}
     {{- $nodeReplicaCount := .Values.ReplicaCount | default 3 }}
     #!/bin/bash
+    source /etc/profile
     echo `date` >> /user/b.txt
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
     mkdir -p /user/data/zookeeper
@@ -40,3 +41,26 @@ data:
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
 
+    if [ $host_num -eq 0 ];then
+      hadoop-daemons.sh start journalnode
+      sh /user/nodeinfo/start.sh nnfc $host_dns_2
+      start-dfs.sh
+      start-yarn.sh
+      start-hbase.sh
+      sh /user/nodeinfo/start.sh spark
+    elif [ $host_num -eq 1 ];then
+      yarn-daemon.sh start resourcemanager
+      sh /user/nodeinfo/start.sh oozie
+    elif [ $host_num -eq 2 ];then
+      mr-jobhistory-daemon.sh start historyserver
+      until [ -d /user/data/hadoop/hdfs/name ]
+      do
+        sleep 2
+      done
+      hbase-daemon.sh start master
+      sh /user/nodeinfo/start.sh flink
+      historyserver.sh start
+      start-history-server.sh
+    else
+
+    fi
