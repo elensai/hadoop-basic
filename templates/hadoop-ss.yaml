@@ -92,6 +92,9 @@ spec:
         - name: restartsh
           mountPath: /user/nodeinfo/restart.sh
           subPath: restart.sh
+        - name: initfstart
+          mountPath: /user/nodeinfo/start.sh
+          subPath: start.sh
       volumes:
       - name: nodeinfo
         persistentVolumeClaim:
@@ -210,6 +213,12 @@ spec:
           defaultMode: 0777
           items:
           - key: inittestsh-config
+            path: start.sh
+      - name: initfstart
+        configMap:
+          name: initfstart
+          items:
+          - key: initfstart-config
             path: start.sh
       # - name: init
       #   configMap:
