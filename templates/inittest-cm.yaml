@@ -37,15 +37,8 @@ data:
     done
     for i in "${host_dns[@]}"
     do
-      echo `date`$i >> /user/zkrun.txt
-      if [ $i -eq $host_num ];then
-        zkServer.sh start
-        echo $? >> /user/czkrun.txt
-        echo "sssssss">>/user/czkrun.txt
-        continue
-      fi
+      zkServer.sh start
       ssh root@$i "source /etc/profile && zkServer.sh start"
-      echo $? >> /user/zkrun.txt
     done
 
     if [ $host_num -eq 0 ];then
