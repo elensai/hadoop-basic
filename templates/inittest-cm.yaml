@@ -47,6 +47,7 @@ data:
       sh /user/nodeinfo/start.sh zkfc
       sh /user/nodeinfo/start.sh nnfc $host_dns_2
 
+      touch /user/ccc.txt
     
       hadoop-daemon.sh start namenode
       hadoop-daemon.sh start datanode
