@@ -37,7 +37,12 @@ data:
     done
     for i in "${host_dns[@]}"
     do
-      # zkServer.sh start
+      echo "$i""-" >> /user/eeee.txt
+      echo "{{ $chartName }}-ss-${host_num}.ha-svc.{{ $namespace }}.svc.cluster.local" >> /user/eeee.txt
+      if [ "$i" = "{{ $chartName }}-ss-${host_num}.ha-svc.{{ $namespace }}.svc.cluster.local" ];then
+        echo '222222' > /user/czzzzzz.txt
+        zkServer.sh start
+      fi
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
 
