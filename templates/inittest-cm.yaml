@@ -78,8 +78,10 @@ data:
     elif [ $host_num -eq 1 ];then
       echo 1
       sleep 25
+      
+      hadoop-daemons.sh start journalnode
       hadoop-daemons.sh start datanode
-      hadoop-daemon.sh start journalnode
+      #hadoop-daemon.sh start journalnode
  
       yarn-daemons.sh start resourcemanager
       yarn-daemons.sh start nodemanager
@@ -95,9 +97,10 @@ data:
         sleep 4
       done
 
+      hadoop-daemons.sh start journalnode
       hadoop-daemons.sh start namenode
       hadoop-daemons.sh start datanode
-      hadoop-daemon.sh start journalnode
+      #hadoop-daemon.sh start journalnode
       hadoop-daemons.sh start zkfc
 
       yarn-daemon.sh start nodemanager
