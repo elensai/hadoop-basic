@@ -42,8 +42,8 @@ data:
       echo "$i""-" >> /user/eeee.txt
       echo "{{ $chartName }}-ss-${host_num}.ha-svc.{{ $namespace }}.svc.cluster.local" >> /user/eeee.txt
       if [ "$i" = "{{ $chartName }}-ss-${host_num}.ha-svc.{{ $namespace }}.svc.cluster.local" ];then
-        echo '222222' > /user/czzzzzz.txt
         zkServer.sh start
+        echo $?'-zkServer' > /user/czzzzzz.txt
       fi
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
@@ -79,7 +79,7 @@ data:
       echo 1
       sleep 25
       hadoop-daemons.sh start datanode
-      #hadoop-daemon.sh start journalnode
+      hadoop-daemon.sh start journalnode
  
       yarn-daemons.sh start resourcemanager
       yarn-daemons.sh start nodemanager
@@ -97,7 +97,7 @@ data:
 
       hadoop-daemons.sh start namenode
       hadoop-daemons.sh start datanode
-      #hadoop-daemon.sh start journalnode
+      hadoop-daemon.sh start journalnode
       hadoop-daemons.sh start zkfc
 
       yarn-daemon.sh start nodemanager
