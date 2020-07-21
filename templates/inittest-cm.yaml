@@ -42,7 +42,7 @@ data:
     done
 
     if [ $host_num -eq 0 ];then
-      hadoop-daemon.sh start journalnode
+      hadoop-daemons.sh start journalnode
 
       sh /user/nodeinfo/start.sh zkfc
       sh /user/nodeinfo/start.sh nnfc $host_dns_2
@@ -67,7 +67,7 @@ data:
       # sh /user/nodeinfo/start.sh spark
     
     elif [ $host_num -eq 1 ];then
-      hadoop-daemon.sh start journalnode
+      
       sleep 40
 
       hadoop-daemon.sh start datanode
@@ -81,7 +81,7 @@ data:
       # sh /user/nodeinfo/start.sh oozie
       
     elif [ $host_num -eq 2 ];then
-      hadoop-daemon.sh start journalnode
+     
 
       until [ -d /user/data/hadoop/hdfs/name ]
       do
