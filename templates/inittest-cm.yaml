@@ -50,16 +50,16 @@ data:
 
       hadoop-daemons.sh start journalnode
 
-      #hadoop-daemon.sh start namenode
-      #hadoop-daemon.sh start datanode
+      hadoop-daemon.sh start namenode
+      hadoop-daemon.sh start datanode
       #hadoop-daemon.sh start journalnode
-      #hadoop-daemon.sh start zkfc
+      hadoop-daemon.sh start zkfc
   
       # start-dfs.sh
 
       # start-yarn.sh
-      #yarn-daemon.sh start resourcemanager
-      #yarn-daemon.sh start nodemanager
+      yarn-daemon.sh start resourcemanager
+      yarn-daemon.sh start nodemanager
 
 
       # # start-hbase.sh
@@ -70,12 +70,12 @@ data:
     
     elif [ $host_num -eq 1 ];then
       echo 1
-
-      #hadoop-daemon.sh start datanode
+      sleep 25
+      hadoop-daemon.sh start datanode
       #hadoop-daemon.sh start journalnode
  
-      #yarn-daemon.sh start resourcemanager
-      #yarn-daemon.sh start nodemanager
+      yarn-daemon.sh start resourcemanager
+      yarn-daemon.sh start nodemanager
 
       # hbase-daemon.sh start regionserver
       
@@ -88,14 +88,14 @@ data:
         sleep 4
       done
 
-      #hadoop-daemon.sh start namenode
-      #hadoop-daemon.sh start datanode
+      hadoop-daemon.sh start namenode
+      hadoop-daemon.sh start datanode
       #hadoop-daemon.sh start journalnode
-      #hadoop-daemon.sh start zkfc
+      hadoop-daemon.sh start zkfc
 
-      #yarn-daemon.sh start nodemanager
+      yarn-daemon.sh start nodemanager
 
-      #mr-jobhistory-daemon.sh start historyserver
+      mr-jobhistory-daemon.sh start historyserver
 
       
       # sh /user/nodeinfo/start.sh flink
