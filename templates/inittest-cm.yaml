@@ -37,7 +37,7 @@ data:
     done
     for i in "${host_dns[@]}"
     do
-      echo $i
+      echo `date`$i >> /user/zkrun.txt
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
 
