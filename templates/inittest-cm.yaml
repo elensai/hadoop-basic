@@ -69,11 +69,11 @@ data:
       yarn-daemons.sh start nodemanager
 
 
-      # # start-hbase.sh
-      # hbase-daemon.sh start master
-      # hbase-daemon.sh start regionserver
+       start-hbase.sh
+       hbase-daemon.sh start master
+       hbase-daemon.sh start regionserver
 
-      # sh /user/nodeinfo/start.sh spark
+       sh /user/nodeinfo/start.sh spark
     
     elif [ $host_num -eq 1 ];then
       echo 1
@@ -86,9 +86,9 @@ data:
       yarn-daemons.sh start resourcemanager
       yarn-daemons.sh start nodemanager
 
-      # hbase-daemon.sh start regionserver
+       hbase-daemon.sh start regionserver
       
-      # sh /user/nodeinfo/start.sh oozie
+       sh /user/nodeinfo/start.sh oozie
       
     elif [ $host_num -eq 2 ];then
      
@@ -108,12 +108,12 @@ data:
       mr-jobhistory-daemon.sh start historyserver
 
       
-      # sh /user/nodeinfo/start.sh flink
-      # historyserver.sh start
-      # start-history-server.sh
+       sh /user/nodeinfo/start.sh flink
+       historyserver.sh start
+       start-history-server.sh
 
-      # hbase-daemon.sh start master
-      # hbase-daemon.sh start regionserver
+       hbase-daemon.sh start master
+       hbase-daemon.sh start regionserver
 
     else
       echo 'other'
