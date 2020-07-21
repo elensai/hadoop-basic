@@ -68,8 +68,7 @@ data:
       # sh /user/nodeinfo/start.sh spark
     
     elif [ $host_num -eq 1 ];then
-     
-     
+      echo 1
 
       #hadoop-daemon.sh start datanode
       #hadoop-daemon.sh start journalnode
