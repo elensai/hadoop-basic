@@ -37,7 +37,7 @@ data:
     done
     for i in "${host_dns[@]}"
     do
-      zkServer.sh start
+      # zkServer.sh start
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
 
