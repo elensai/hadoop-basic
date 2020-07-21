@@ -50,16 +50,16 @@ data:
 
       hadoop-daemons.sh start journalnode
 
-      hadoop-daemon.sh start namenode
-      hadoop-daemon.sh start datanode
+      hadoop-daemons.sh start namenode
+      hadoop-daemons.sh start datanode
       #hadoop-daemon.sh start journalnode
-      hadoop-daemon.sh start zkfc
+      hadoop-daemons.sh start zkfc
   
       # start-dfs.sh
 
       # start-yarn.sh
-      yarn-daemon.sh start resourcemanager
-      yarn-daemon.sh start nodemanager
+      yarn-daemons.sh start resourcemanager
+      yarn-daemons.sh start nodemanager
 
 
       # # start-hbase.sh
@@ -71,11 +71,11 @@ data:
     elif [ $host_num -eq 1 ];then
       echo 1
       sleep 25
-      hadoop-daemon.sh start datanode
+      hadoop-daemons.sh start datanode
       #hadoop-daemon.sh start journalnode
  
-      yarn-daemon.sh start resourcemanager
-      yarn-daemon.sh start nodemanager
+      yarn-daemons.sh start resourcemanager
+      yarn-daemons.sh start nodemanager
 
       # hbase-daemon.sh start regionserver
       
@@ -88,10 +88,10 @@ data:
         sleep 4
       done
 
-      hadoop-daemon.sh start namenode
-      hadoop-daemon.sh start datanode
+      hadoop-daemons.sh start namenode
+      hadoop-daemons.sh start datanode
       #hadoop-daemon.sh start journalnode
-      hadoop-daemon.sh start zkfc
+      hadoop-daemons.sh start zkfc
 
       yarn-daemon.sh start nodemanager
 
