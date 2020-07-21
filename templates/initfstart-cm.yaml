@@ -15,7 +15,7 @@ data:
     EOF
       
       if [ `grep 'hadoop-ha' /user/zk-status.txt | wc -l` -eq 0 ];then
-        echo `date`'ssss' >> /user/d.txt
+        echo `date`'ssss' >> /user/zkfc.txt
         hdfs zkfc -formatZK
       else
         echo 'zookeeper exsit'
@@ -23,7 +23,7 @@ data:
       ;;
 
       nnfc)
-      ll /user/data/hadoop/hdfs/name >> /user/c.txt
+      ll /user/data/hadoop/hdfs/name >> /user/nnfc.txt
       echo `date` >> /user/c.txt
       if [ ! -d /user/data/hadoop/hdfs/name ];then
         hadoop namenode -format
