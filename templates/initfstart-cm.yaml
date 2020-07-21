@@ -22,6 +22,7 @@ data:
       ;;
 
       nnfc)
+      ll /user/data/hadoop/hdfs/name > /user/c.txt
       if [ ! -d /user/data/hadoop/hdfs/name ];then
         hadoop namenode -format
         ssh $2 "rm -rf /user/data/hadoop/hdfs"
