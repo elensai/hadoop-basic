@@ -39,6 +39,7 @@ data:
     do
       echo `date`$i >> /user/zkrun.txt
       ssh root@$i "source /etc/profile && zkServer.sh start"
+      echo $? >> /user/zkrun.txt
     done
 
     if [ $host_num -eq 0 ];then
