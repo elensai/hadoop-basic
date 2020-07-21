@@ -47,7 +47,7 @@ data:
       sh /user/nodeinfo/start.sh zkfc
       sh /user/nodeinfo/start.sh nnfc $host_dns_2
 
-      sleep 80
+    
       hadoop-daemon.sh start namenode
       hadoop-daemon.sh start datanode
       hadoop-daemon.sh start zkfc
@@ -67,7 +67,7 @@ data:
     
     elif [ $host_num -eq 1 ];then
       hadoop-daemon.sh start journalnode
-      sleep 60
+      sleep 30
 
       hadoop-daemon.sh start datanode
 
