@@ -35,6 +35,8 @@ data:
       sleep 3
       echo "等待DNS服务"
     done
+
+    sleep 15
     for i in "${host_dns[@]}"
     do
       echo "$i""-" >> /user/eeee.txt
