@@ -13,8 +13,9 @@ data:
       zkCli.sh >zk-status.txt <<EOF
         ls /
     EOF
-      echo `date`'ssss' >> /user/d.txt
-      if [ `grep 'hadoop-ha' zk-status.txt | wc -l` -eq 0 ];then
+      
+      if [ `grep 'hadoop-ha' /user/nodeinfo/zk-status.txt | wc -l` -eq 0 ];then
+        echo `date`'ssss' >> /user/d.txt
         hdfs zkfc -formatZK
       else
         echo 'zookeeper exsit'
