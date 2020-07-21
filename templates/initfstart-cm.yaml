@@ -10,6 +10,7 @@ data:
 
     case $1 in
       zkfc)
+      sleep 10
       zkCli.sh > /user/zk-status.txt <<EOF
         ls /
     EOF
