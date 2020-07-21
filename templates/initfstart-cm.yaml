@@ -25,8 +25,8 @@ data:
       if [ ! -d /user/data/hadoop/hdfs/name ];then
         hadoop namenode -format
         ssh $2 "rm -rf /user/data/hadoop/*"
+        sleep 20
         scp -r /user/data/hadoop/hdfs $2:/user/data/hadoop/
-        sleep 60
       else
         echo 'nn exsit'
       fi
