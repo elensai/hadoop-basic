@@ -39,6 +39,7 @@ EOF
   if [ $? -ne 0 ]; then  
     (oozie-setup.sh prepare-war sharelib create -fs hdfs://ns -locallib $OOZIE_HOME/oozie-sharelib-4.0.0-cdh5.3.6-yarn.tar.gz) && (ooziedb.sh create -sqlfile oozie.sql -run DB Connection && oozied.sh start);
   else
+    oozied.sh start
     echo 'oozie exsit'
   fi
   ;;
