@@ -44,7 +44,7 @@ data:
     if [ $host_num -eq 0 ];then
     
       hadoop-daemons.sh start journalnode
-     
+
       sh /user/nodeinfo/start.sh zkfc
       sh /user/nodeinfo/start.sh nnfc $host_dns_2
 
