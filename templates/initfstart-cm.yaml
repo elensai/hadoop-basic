@@ -10,11 +10,11 @@ data:
 
     case $1 in
       zkfc)
-      zkCli.sh >zk-status.txt <<EOF
+      zkCli.sh > /user/zk-status.txt <<EOF
         ls /
     EOF
       
-      if [ `grep 'hadoop-ha' /user/nodeinfo/zk-status.txt | wc -l` -eq 0 ];then
+      if [ `grep 'hadoop-ha' /user/zk-status.txt | wc -l` -eq 0 ];then
         echo `date`'ssss' >> /user/d.txt
         hdfs zkfc -formatZK
       else
