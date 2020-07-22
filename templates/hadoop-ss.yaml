@@ -79,9 +79,6 @@ spec:
         - name: oozie-site
           mountPath: /user/apps/oozie-4.0.0/conf/oozie-site.xml
           subPath: oozie-site.xml
-        # - name: init
-        #   mountPath: /user/init.sh
-        #   subPath: init.sh
         - name: {{ .Chart.Name }}
           mountPath: /user/data
         - name: nodeinfo
