@@ -8,40 +8,6 @@ data:
     {{- $chartName := .Chart.Name }}
     {{- $namespace := .Release.Namespace }}
     #!/bin/bash
-    source /etc/profile
-    host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
-    # 重启脚本
-    if [[ $host_num = 0 ]];
-    then
-      zkServer.sh start
-      hadoop-daemon.sh start journalnode
-      hadoop-daemon.sh start zkfc
-      hadoop-daemon.sh start namenode
-      hadoop-daemon.sh start datanode
-      yarn-daemon.sh start resourcemanager
-      yarn-daemon.sh start nodemanager
-    elif [[ $host_num = 1 ]];
-    then
-      zkServer.sh start
-      hadoop-daemon.sh start journalnode
-      hadoop-daemon.sh start datanode
-      yarn-daemon.sh start resourcemanager
-      yarn-daemon.sh start nodemanager
-    elif [[ $host_num = 2 ]];
-    then
-      zkServer.sh start
-      hadoop-daemon.sh start journalnode
-      hadoop-daemon.sh start zkfc
-      hadoop-daemon.sh start namenode
-      hadoop-daemon.sh start datanode
-      yarn-daemon.sh start nodemanager
-      mr-jobhistory-daemon.sh start historyserver
-      # start-history-server.sh
-    else
-        zkServer.sh start
-        hadoop-daemon.sh start journalnode
-        hadoop-daemon.sh start datanode
-        yarn-daemon.sh start nodemanager
-    fi
+    
 
 
