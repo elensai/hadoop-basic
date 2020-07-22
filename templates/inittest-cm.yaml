@@ -109,6 +109,9 @@ data:
 
       
       sh /user/nodeinfo/start.sh flink
+
+      echo 12355555555555
+
       historyserver.sh start
       start-history-server.sh
 
