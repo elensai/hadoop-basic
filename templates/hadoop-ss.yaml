@@ -18,7 +18,6 @@ spec:
       - name: con
         image: "{{ .Values.databaseimage }}:{{ .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
-        # command: ["/bin/bash", "-c", "sh /user/init.sh"]
         securityContext:
           privileged: true
         volumeMounts:
