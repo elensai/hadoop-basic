@@ -220,12 +220,6 @@ spec:
           items:
           - key: initfstart-config
             path: start.sh
-      # - name: init
-      #   configMap:
-      #     name: initsh
-      #     items:
-      #     - key: initsh-config
-      #       path: init.sh
   volumeClaimTemplates:
   - metadata:
       name: {{ .Chart.Name }}
