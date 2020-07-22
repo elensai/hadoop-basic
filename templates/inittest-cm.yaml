@@ -44,6 +44,7 @@ data:
       if [ "$i" = "{{ $chartName }}-ss-${host_num}.ha-svc.{{ $namespace }}.svc.cluster.local" ];then
         zkServer.sh start
         echo $?'-zkServer' > /user/czzzzzz.txt
+        continue
       fi
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
