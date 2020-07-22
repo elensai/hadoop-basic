@@ -97,7 +97,8 @@ data:
       do
         sleep 4
       done
-
+      source /etc/profile
+      zkServer.sh start >> /user/zk.log
       hadoop-daemons.sh start journalnode
       hadoop-daemons.sh start namenode
       hadoop-daemons.sh start datanode
