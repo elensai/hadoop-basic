@@ -11,7 +11,6 @@ data:
     {{- $nodeReplicaCount := .Values.ReplicaCount | default 3 }}
     #!/bin/bash
     source /etc/profile
-    echo `date` >> /user/b.txt
     host_num=`echo $HOSTNAME | awk -F- '{print $NF}'`
     mkdir -p /user/data/zookeeper
     echo $host_num > /user/data/zookeeper/myid;
@@ -36,21 +35,17 @@ data:
       echo "等待DNS服务"
     done
 
-    sleep 15
     for i in "${host_dns[@]}"
     do
-      echo "$i""-" >> /user/eeee.txt
-      echo "{{ $chartName }}-ss-${host_num}.ha-svc.{{ $namespace }}.svc.cluster.local" >> /user/eeee.txt
       if [ "$i" = "{{ $chartName }}-ss-${host_num}.ha-svc.{{ $namespace }}.svc.cluster.local" ];then
         zkServer.sh start >> /user/zk.log
-        echo $?'-zkServer' > /user/czzzzzz.txt
         continue
       fi
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
 
     if [ $host_num -eq 0 ];then
-    
+      echo "node0" 
       hadoop-daemons.sh start journalnode
 
       sh /user/nodeinfo/start.sh zkfc
@@ -63,12 +58,8 @@ data:
       #hadoop-daemon.sh start journalnode
       hadoop-daemons.sh start zkfc
   
-      # start-dfs.sh
-
-      # start-yarn.sh
       yarn-daemons.sh start resourcemanager
       yarn-daemons.sh start nodemanager
-
 
       #start-hbase.sh
       hbase-daemon.sh start master
@@ -77,12 +68,9 @@ data:
       sh /user/nodeinfo/start.sh spark
     
     elif [ $host_num -eq 1 ];then
-      echo 1
-      sleep 45
-      
+      echo "node1"      
       hadoop-daemons.sh start journalnode
       hadoop-daemons.sh start datanode
-      #hadoop-daemon.sh start journalnode
 
       yarn-daemons.sh start resourcemanager
       yarn-daemons.sh start nodemanager
@@ -92,34 +80,28 @@ data:
       sh /user/nodeinfo/start.sh oozie
       
     elif [ $host_num -eq 2 ];then
+      echo 'node2'
+      until [ -d /user/data/hadoop/hdfs/name ]
+      do
+        sleep 4
+      done
+      hadoop-daemons.sh start journalnode
+      hadoop-daemons.sh start namenode
+      hadoop-daemons.sh start datanode
 
-      echo 2
+      hadoop-daemons.sh start zkfc
 
-       until [ -d /user/data/hadoop/hdfs/name ]
-       do
-         sleep 4
-       done
-      
-       hadoop-daemons.sh start journalnode
-       hadoop-daemons.sh start namenode
-       hadoop-daemons.sh start datanode
-       #hadoop-daemon.sh start journalnode
-       hadoop-daemons.sh start zkfc
+      yarn-daemons.sh start nodemanager
 
-       yarn-daemons.sh start nodemanager
+      mr-jobhistory-daemon.sh start historyserver
 
-       mr-jobhistory-daemon.sh start historyserver
+      sh /user/nodeinfo/start.sh flink
 
-      
-       sh /user/nodeinfo/start.sh flink
+      historyserver.sh start
+      start-history-server.sh
 
-      # echo 12355555555555
-
-       historyserver.sh start
-       start-history-server.sh
-
-       hbase-daemon.sh start master
-       hbase-daemon.sh start regionserver
+      hbase-daemon.sh start master
+      hbase-daemon.sh start regionserver
 
     else
       echo 'other'

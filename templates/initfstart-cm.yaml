@@ -7,16 +7,12 @@ data:
   initfstart-config: |-
     #!/bin/bash
     source /etc/profile
-
     case $1 in
       zkfc)
-      sleep 10
       zkCli.sh > /user/zk-status.txt <<EOF
         ls /
     EOF
-      
       if [ `grep 'hadoop-ha' /user/zk-status.txt | wc -l` -eq 0 ];then
-        echo `date`'ssss' >> /user/zkfc.txt
         hdfs zkfc -formatZK
       else
         echo 'zookeeper exsit'
@@ -24,11 +20,9 @@ data:
       ;;
 
       nnfc)
-      echo `date` >> /user/c.txt
       if [ ! -d /user/data/hadoop/hdfs/name ];then
         hadoop namenode -format
         ssh $2 "rm -rf /user/data/hadoop/hdfs"
-        sleep 20
         scp -r /user/data/hadoop/hdfs $2:/user/data/hadoop/
       else
         echo 'nn exsit'
