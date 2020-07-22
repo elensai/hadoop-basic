@@ -18,6 +18,6 @@ volumenum:
 - num: "0"
 - num: "1"
 - num: "2"
-# 总结点数，最后一个节点索引，如：4个节点，最后一个索引是3
+
 lastnodeindex: 2
 
