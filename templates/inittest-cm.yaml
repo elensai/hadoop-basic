@@ -111,11 +111,11 @@ data:
        mr-jobhistory-daemon.sh start historyserver
 
       
-      # sh /user/nodeinfo/start.sh flink
+       sh /user/nodeinfo/start.sh flink
 
       # echo 12355555555555
 
-      # historyserver.sh start
+       historyserver.sh start
        start-history-server.sh
 
        hbase-daemon.sh start master
