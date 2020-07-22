@@ -49,77 +49,77 @@ data:
       ssh root@$i "source /etc/profile && zkServer.sh start"
     done
 
-    if [ $host_num -eq 0 ];then
+    # if [ $host_num -eq 0 ];then
     
-      hadoop-daemons.sh start journalnode
+    #   hadoop-daemons.sh start journalnode
 
-      sh /user/nodeinfo/start.sh zkfc
-      sh /user/nodeinfo/start.sh nnfc $host_dns_2
+    #   sh /user/nodeinfo/start.sh zkfc
+    #   sh /user/nodeinfo/start.sh nnfc $host_dns_2
 
-      hadoop-daemons.sh start journalnode
+    #   hadoop-daemons.sh start journalnode
 
-      hadoop-daemons.sh start namenode
-      hadoop-daemons.sh start datanode
-      #hadoop-daemon.sh start journalnode
-      hadoop-daemons.sh start zkfc
+    #   hadoop-daemons.sh start namenode
+    #   hadoop-daemons.sh start datanode
+    #   #hadoop-daemon.sh start journalnode
+    #   hadoop-daemons.sh start zkfc
   
-      # start-dfs.sh
+    #   # start-dfs.sh
 
-      # start-yarn.sh
-      yarn-daemons.sh start resourcemanager
-      yarn-daemons.sh start nodemanager
+    #   # start-yarn.sh
+    #   yarn-daemons.sh start resourcemanager
+    #   yarn-daemons.sh start nodemanager
 
 
-      start-hbase.sh
-      hbase-daemon.sh start master
-      hbase-daemon.sh start regionserver
+    #   start-hbase.sh
+    #   hbase-daemon.sh start master
+    #   hbase-daemon.sh start regionserver
 
-      sh /user/nodeinfo/start.sh spark
+    #   sh /user/nodeinfo/start.sh spark
     
-    elif [ $host_num -eq 1 ];then
-      echo 1
-      sleep 25
+    # elif [ $host_num -eq 1 ];then
+    #   echo 1
+    #   sleep 25
       
-      hadoop-daemons.sh start journalnode
-      hadoop-daemons.sh start datanode
-      #hadoop-daemon.sh start journalnode
+    #   hadoop-daemons.sh start journalnode
+    #   hadoop-daemons.sh start datanode
+    #   #hadoop-daemon.sh start journalnode
 
-      yarn-daemons.sh start resourcemanager
-      yarn-daemons.sh start nodemanager
+    #   yarn-daemons.sh start resourcemanager
+    #   yarn-daemons.sh start nodemanager
 
-      hbase-daemon.sh start regionserver
+    #   hbase-daemon.sh start regionserver
     
-      sh /user/nodeinfo/start.sh oozie
+    #   sh /user/nodeinfo/start.sh oozie
       
-    elif [ $host_num -eq 2 ];then
+    # elif [ $host_num -eq 2 ];then
 
-      until [ -d /user/data/hadoop/hdfs/name ]
-      do
-        sleep 4
-      done
-      source /etc/profile
-      zkServer.sh start >> /user/zk.log
-      hadoop-daemons.sh start journalnode
-      hadoop-daemons.sh start namenode
-      hadoop-daemons.sh start datanode
-      #hadoop-daemon.sh start journalnode
-      hadoop-daemons.sh start zkfc
+    #   until [ -d /user/data/hadoop/hdfs/name ]
+    #   do
+    #     sleep 4
+    #   done
+    #   source /etc/profile
+    #   zkServer.sh start >> /user/zk.log
+    #   hadoop-daemons.sh start journalnode
+    #   hadoop-daemons.sh start namenode
+    #   hadoop-daemons.sh start datanode
+    #   #hadoop-daemon.sh start journalnode
+    #   hadoop-daemons.sh start zkfc
 
-      yarn-daemon.sh start nodemanager
+    #   yarn-daemon.sh start nodemanager
 
-      mr-jobhistory-daemon.sh start historyserver
+    #   mr-jobhistory-daemon.sh start historyserver
 
       
-      sh /user/nodeinfo/start.sh flink
+    #   sh /user/nodeinfo/start.sh flink
 
-      echo 12355555555555
+    #   echo 12355555555555
 
-      historyserver.sh start
-      start-history-server.sh
+    #   historyserver.sh start
+    #   start-history-server.sh
 
-      hbase-daemon.sh start master
-      hbase-daemon.sh start regionserver
+    #   hbase-daemon.sh start master
+    #   hbase-daemon.sh start regionserver
 
-    else
-      echo 'other'
-    fi
+    # else
+    #   echo 'other'
+    # fi
