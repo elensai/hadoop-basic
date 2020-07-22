@@ -108,7 +108,7 @@ data:
 
        yarn-daemons.sh start nodemanager
 
-       #mr-jobhistory-daemon.sh start historyserver
+       mr-jobhistory-daemon.sh start historyserver
 
       
       # sh /user/nodeinfo/start.sh flink
@@ -116,10 +116,10 @@ data:
       # echo 12355555555555
 
       # historyserver.sh start
-      # start-history-server.sh
+       start-history-server.sh
 
-      # hbase-daemon.sh start master
-      # hbase-daemon.sh start regionserver
+       hbase-daemon.sh start master
+       hbase-daemon.sh start regionserver
 
     else
       echo 'other'
