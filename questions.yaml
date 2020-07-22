@@ -23,12 +23,6 @@ questions:
   group: "hadoop-basic"
   label: "存储空间大小"
 
-# - variable: BasicConfig.InitHadoopVol
-#   type: boolean
-#   default: false
-#   group: "hadoop-basic"
-#   label: "是否初始化大数据平台存储，默认：否"
-
 - variable: BasicConfig.MysqlURL
   type: string
   default: mysql-basic-svc
