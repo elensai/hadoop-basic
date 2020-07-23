@@ -65,6 +65,8 @@ data:
       hbase-daemon.sh start regionserver
 
       sh /user/nodeinfo/start.sh spark
+
+      tail -f /etc/hosts
     
     elif [ $host_num -eq 1 ];then
       echo "node1"      
