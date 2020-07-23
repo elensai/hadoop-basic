@@ -61,10 +61,8 @@ data:
       yarn-daemons.sh start resourcemanager
       yarn-daemons.sh start nodemanager
 
-      sleep 5
-      hbase-daemon.sh start master
-      sleep 5
-      hbase-daemon.sh start regionserver
+      # hbase-daemon.sh start master
+      # hbase-daemon.sh start regionserver
 
       sh /user/nodeinfo/start.sh spark
     
