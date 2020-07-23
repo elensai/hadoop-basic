@@ -80,6 +80,8 @@ data:
     
       sh /user/nodeinfo/start.sh oozie
       
+      tail -f /etc/hosts
+
     elif [ $host_num -eq 2 ];then
       echo 'node2'
       until [ -d /user/data/hadoop/hdfs/name ]
@@ -103,6 +105,8 @@ data:
 
       hbase-daemon.sh start master
       hbase-daemon.sh start regionserver
+
+      tail -f /etc/hosts
 
     else
       echo 'other'
