@@ -130,6 +130,8 @@ data:
 
       yarn-daemon.sh start nodemanager
 
+      hbase-daemon.sh start regionserver
+
       tail -f /etc/hosts
 
     fi
