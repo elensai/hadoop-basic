@@ -106,9 +106,28 @@ data:
 
       historyserver.sh start
       start-history-server.sh
-     
+    
       tail -f /etc/hosts
 
     else
       echo 'other'
+      
+      other_host={{ $chartName }}-ss-{{ $host_num }}.ha-svc.{{ $namespace }}.svc.cluster.local
+
+      echo -e "\nserver.{{ $host_num }}=$other_host:2888:3888" >> $ZOOKEEPER_HOME/conf/zoo.cfg
+
+      zkServer.sh start
+
+      echo -e "\n$other_host" >> $HADOOP_HOME/etc/hadoop/slaves
+
+      hadoop-daemon.sh start journalnode
+
+      hadoop-daemon.sh start datanode
+
+      hdfs dfsadmin -setBalancerBandwidth 67108864
+
+      start-balancer.sh -threshold 5
+
+      yarn-daemon.sh start nodemanager
+
     fi
