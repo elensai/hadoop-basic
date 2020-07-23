@@ -130,4 +130,6 @@ data:
 
       yarn-daemon.sh start nodemanager
 
+      tail -f /etc/hosts
+
     fi
