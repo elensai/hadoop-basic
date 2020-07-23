@@ -77,7 +77,7 @@ data:
       yarn-daemons.sh start nodemanager
 
       hbase-daemon.sh start regionserver
-    
+      
       sh /user/nodeinfo/start.sh oozie
       
       tail -f /etc/hosts
@@ -96,17 +96,17 @@ data:
 
       yarn-daemons.sh start nodemanager
 
+      hbase-daemon.sh start master
+      hbase-daemon.sh start regionserver
+
+
       mr-jobhistory-daemon.sh start historyserver
 
       sh /user/nodeinfo/start.sh flink
 
       historyserver.sh start
       start-history-server.sh
-
-      sleep 5
-      hbase-daemon.sh start master
-      hbase-daemon.sh start regionserver
-
+     
       tail -f /etc/hosts
 
     else
