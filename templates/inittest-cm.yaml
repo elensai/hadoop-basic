@@ -103,6 +103,7 @@ data:
       historyserver.sh start
       start-history-server.sh
 
+      sleep 5
       hbase-daemon.sh start master
       hbase-daemon.sh start regionserver
 
