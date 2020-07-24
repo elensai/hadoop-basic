@@ -13,7 +13,7 @@ questions:
 
 - variable: BasicConfig.dfsblocksize
   type: string
-  default: 134217728
+  default: "134217728"
   group: "hadoop-basic optimize"
   label: "HDFS 块大小"
 
@@ -94,7 +94,7 @@ questions:
   default: false
   group: "hadoop-basic optimize"
   label: "是否开启虚拟内存检查"
-  
+
 
 - variable: BasicConfig.StorageServer
   type: string
