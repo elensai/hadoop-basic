@@ -11,6 +11,21 @@ BasicConfig:
   StorageCapacity: ""
   RootPasswd: ""
   ServicePort: ""
+  dfsreplication: 3
+  dfsblocksize: 134217728
+  dfsnamenodehandlercount: 10
+  dfsdatanodehandlercount: 3
+  dfspermissionsenable: false
+  dfsdatanodedureserved: 0
+  iofilebuffersize: 4096
+  yarnschedulerminimum-allocation-mb: 1024
+  yarnschedulermaximum-allocation-mb: 8192
+  yarnschedulerminimum-allocation-vcores: 1
+  yarnschedulermaximum-allocation-vcores: 32
+  yarnnodemanagerresourcememory-mb: 8192
+  yarnnodemanagervmem-pmem-ratio: 2.1
+  yarnnodemanagerresourcecpu-vcores: 8
+  yarnnodemanagervmem-check-enabled: false
 
 databaseimage: registry.elensdata.com:333/elensai/hadoop-072212
 

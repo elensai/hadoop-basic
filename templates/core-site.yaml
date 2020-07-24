@@ -29,13 +29,13 @@ data:
     <configuration>
 
       <property>
-            <name>fs.defaultFS</name>
-            <value>hdfs://ns</value>
+        <name>fs.defaultFS</name>
+        <value>hdfs://ns</value>
       </property>
 
       <property>
-            <name>hadoop.tmp.dir</name>
-            <value>/user/data/hadoop/hdfs/temp</value>
+        <name>hadoop.tmp.dir</name>
+        <value>/user/data/hadoop/hdfs/temp</value>
       </property>
 
       <property>
@@ -54,20 +54,25 @@ data:
       </property>
 
       <property>
-          <name>fs.trash.interval</name>
-          <value>4320</value>
+        <name>fs.trash.interval</name>
+        <value>4320</value>
       </property>
 
       <property>
-            <name>ipc.client.connect.timeout</name>
-            <value>360000</value>
+        <name>ipc.client.connect.timeout</name>
+        <value>360000</value>
       </property>
       <property>
         <name>hadoop.proxyuser.root.hosts</name>
         <value>*</value>
       </property>
       <property>
-          <name>hadoop.proxyuser.root.groups</name>
-          <value>*</value>
+        <name>hadoop.proxyuser.root.groups</name>
+        <value>*</value>
+      </property>
+
+      <property>
+        <name>io.file.buffer.size</name>
+        <value>{{ .Values.BasicConfig.iofilebuffersize }}</value>
       </property>
     </configuration>

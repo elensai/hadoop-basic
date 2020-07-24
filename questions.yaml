@@ -5,6 +5,96 @@ questions:
   group: "global"
   label: "备用命名空间(备用字段，不必填写)"
 
+- variable: BasicConfig.dfsreplication
+  type: string
+  default: 3
+  group: "hadoop-basic optimize"
+  label: "HDFS 复制因子"
+
+- variable: BasicConfig.dfsblocksize
+  type: string
+  default: 134217728
+  group: "hadoop-basic optimize"
+  label: "HDFS 块大小"
+
+- variable: BasicConfig.dfsnamenodehandlercount
+  type: string
+  default: 10
+  group: "hadoop-basic optimize"
+  label: "HDFS namenode 处理程序计数"
+
+- variable: BasicConfig.dfsdatanodehandlercount
+  type: string
+  default: 3
+  group: "hadoop-basic optimize"
+  label: "HDFS datanode 处理程序计数"
+
+- variable: BasicConfig.dfspermissionsenable
+  type: string
+  default: "false"
+  group: "hadoop-basic optimize"
+  label: "检查 HDFS 权限"
+
+- variable: BasicConfig.dfsdatanodedureserved
+  type: string
+  default: 0
+  group: "hadoop-basic optimize"
+  label: "适用于非 DFS 使用的保留空间"
+
+- variable: BasicConfig.iofilebuffersize
+  type: string
+  default: 4096
+  group: "hadoop-basic optimize"
+  label: "HDFS 缓存大小"
+
+- variable: BasicConfig.yarnschedulerminimum-allocation-mb
+  type: string
+  default: 1024
+  group: "hadoop-basic optimize"
+  label: "最小容器(yarn)内存"
+
+- variable: BasicConfig.yarnschedulermaximum-allocation-mb
+  type: string
+  default: 8192
+  group: "hadoop-basic optimize"
+  label: "最大容器(yarn)内存"
+
+- variable: BasicConfig.yarnschedulerminimum-allocation-vcores
+  type: string
+  default: 1
+  group: "hadoop-basic optimize"
+  label: "最小容器(yarn)虚拟CPU内核数量"
+
+- variable: BasicConfig.yarnschedulermaximum-allocation-vcores
+  type: string
+  default: 32
+  group: "hadoop-basic optimize"
+  label: "最大容器(yarn)虚拟CPU内核数量"
+
+- variable: BasicConfig.yarnnodemanagerresourcememory-mb
+  type: string
+  default: 8192
+  group: "hadoop-basic optimize"
+  label: "每个节点可用的最大内存"
+
+- variable: BasicConfig.yarnnodemanagervmem-pmem-ratio
+  type: string
+  default: 2.1
+  group: "hadoop-basic optimize"
+  label: "每使用1MB物理内存，最多可用的虚拟内存数"
+
+- variable: BasicConfig.yarnnodemanagerresourcecpu-vcores
+  type: string
+  default: 8
+  group: "hadoop-basic optimize"
+  label: "容器虚拟 CPU 内核"
+
+- variable: BasicConfig.yarnnodemanagervmem-check-enabled
+  type: string
+  default: false
+  group: "hadoop-basic optimize"
+  label: "是否开启虚拟内存检查"
+
 - variable: BasicConfig.StorageServer
   type: string
   default: 192.168.1.163

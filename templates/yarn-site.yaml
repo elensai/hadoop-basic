@@ -24,108 +24,145 @@ data:
     -->
     <configuration>
       <property>  
-          <name>yarn.nodemanager.vmem-check-enabled</name>  
-          <value>false</value>  
+        <name>yarn.nodemanager.vmem-check-enabled</name>  
+        <value>{{ .Values.BasicConfig.yarnnodemanagervmem-check-enabled }}</value>  
       </property> 
       <property>
-              <name>yarn.resourcemanager.ha.enabled</name>
-              <value>true</value>
+        <name>yarn.resourcemanager.ha.enabled</name>
+        <value>true</value>
       </property>
 
       <property>
-              <name>yarn.resourcemanager.recovery.enabled</name>
-              <value>true</value>
+        <name>yarn.resourcemanager.recovery.enabled</name>
+        <value>true</value>
       </property>
 
       <property>
-              <name>yarn.resourcemanager.connect.retry-interval.ms</name>
-              <value>2000</value>
+        <name>yarn.resourcemanager.connect.retry-interval.ms</name>
+        <value>2000</value>
       </property>
 
       <property>
-              <name>yarn.resourcemanager.ha.automatic-failover.enabled</name>
-              <value>true</value>
-      </property>
-
-        <property>
-            <name>yarn.resourcemanager.cluster-id</name>
-            <value>yrc</value>
+        <name>yarn.resourcemanager.ha.automatic-failover.enabled</name>
+        <value>true</value>
       </property>
 
       <property>
-            <name>yarn.resourcemanager.ha.rm-ids</name>
-            <value>rm1,rm2</value>
+        <name>yarn.resourcemanager.cluster-id</name>
+        <value>yrc</value>
       </property>
 
-        <property>
-            <name>yarn.resourcemanager.hostname.rm1</name>
-            <value>{{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local</value>
-        </property>
-
-        <property>
-            <name>yarn.resourcemanager.hostname.rm2</name>
-            <value>{{ $chartName }}-ss-1.ha-svc.{{ .Release.Namespace }}.svc.cluster.local</value>
+      <property>
+        <name>yarn.resourcemanager.ha.rm-ids</name>
+        <value>rm1,rm2</value>
       </property>
 
-        <property>
-            <name>yarn.resourcemanager.webapp.address.rm1</name>
-            <value>{{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:8088</value>
-        </property>
+      <property>
+        <name>yarn.resourcemanager.hostname.rm1</name>
+        <value>{{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local</value>
+      </property>
 
-        <property>
-            <name>yarn.resourcemanager.webapp.address.rm2</name>
-            <value>{{ $chartName }}-ss-1.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:8088</value>
-        </property>
+      <property>
+        <name>yarn.resourcemanager.hostname.rm2</name>
+        <value>{{ $chartName }}-ss-1.ha-svc.{{ .Release.Namespace }}.svc.cluster.local</value>
+      </property>
 
-          <property>
-            <name>yarn.resourcemanager.zk-address</name>
-            {{- $namespace := .Release.Namespace }}
-            {{- $lastnodeindex := .Values.lastnodeindex|int}}
-            {{ range $key, $val := .Values.volumenum }}
-              {{- if eq $key 0}}
-              {{- "<value>" }}{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local:2181,
-              {{- else if and (gt $key 0) (lt $key $lastnodeindex) }}
-              {{- "" }}{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local:2181,
-              {{- else }}
-              {{- "" }}{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local:2181</value>
-              {{- end }}
-            {{- end }}
-        </property>
+      <property>
+        <name>yarn.resourcemanager.webapp.address.rm1</name>
+        <value>{{ $chartName }}-ss-0.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:8088</value>
+      </property>
 
-        <property>    
-            <name>yarn.nodemanager.aux-services</name>    
-            <value>mapreduce_shuffle</value>    
-        </property>  
+      <property>
+        <name>yarn.resourcemanager.webapp.address.rm2</name>
+        <value>{{ $chartName }}-ss-1.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:8088</value>
+      </property>
 
-        <property>
-                <name>yarn.log-aggregation-enable</name>
-                <value>true</value>
-        </property>
+      <property>
+        <name>yarn.resourcemanager.zk-address</name>
+        {{- $namespace := .Release.Namespace }}
+        {{- $lastnodeindex := .Values.lastnodeindex|int}}
+        {{ range $key, $val := .Values.volumenum }}
+          {{- if eq $key 0}}
+          {{- "<value>" }}{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local:2181,
+          {{- else if and (gt $key 0) (lt $key $lastnodeindex) }}
+          {{- "" }}{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local:2181,
+          {{- else }}
+          {{- "" }}{{ $chartName }}-ss-{{ .num }}.ha-svc.{{ $namespace }}.svc.cluster.local:2181</value>
+          {{- end }}
+        {{- end }}
+      </property>
 
-        <property>
-                <name>yarn.log-aggregation.retain-seconds</name>
-                <value>86400</value>
-        </property>
+      <property>    
+        <name>yarn.nodemanager.aux-services</name>    
+        <value>mapreduce_shuffle</value>    
+      </property>  
 
-        <property>
-              <name>yarn.log.server.url</name>
-              <value>http://{{ $chartName }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:19888/jobhistory/logs/</value>
-        </property>
+      <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+      </property>
 
-        <property>
-            <name>yarn.log-aggregation.retain-check-interval-seconds</name>
-            <value>86400</value>
-        </property> 
+      <property>
+        <name>yarn.log-aggregation.retain-seconds</name>
+        <value>86400</value>
+      </property>
 
-        <property> 
-            <name>yarn.nodemanager.vmem-check-enabled</name> 
-            <value>false</value> 
-        </property>
+      <property>
+        <name>yarn.log.server.url</name>
+        <value>http://{{ $chartName }}-ss-2.ha-svc.{{ .Release.Namespace }}.svc.cluster.local:19888/jobhistory/logs/</value>
+      </property>
 
-        <property> 
-            <name>yarn.resourcemanager.am.max-attempts</name> 
-            <value>10</value> 
-        </property>
-        
+      <property>
+        <name>yarn.log-aggregation.retain-check-interval-seconds</name>
+        <value>86400</value>
+      </property> 
+
+      <property> 
+        <name>yarn.nodemanager.vmem-check-enabled</name> 
+        <value>false</value> 
+      </property>
+
+      <property> 
+        <name>yarn.resourcemanager.am.max-attempts</name> 
+        <value>10</value> 
+      </property>
+
+
+
+      <property> 
+        <name>yarn.scheduler.minimum-allocation-mb</name> 
+        <value>{{ .Values.BasicConfig.yarnschedulerminimum-allocation-mb }}</value> 
+      </property>
+
+      <property> 
+        <name>yarn.scheduler.maximum-allocation-mb</name> 
+        <value>{{ .Values.BasicConfig.yarnschedulermaximum-allocation-mb }}</value> 
+      </property>
+      
+      <property> 
+        <name>yarn.scheduler.minimum-allocation-vcores</name> 
+        <value>{{ .Values.BasicConfig.yarnschedulerminimum-allocation-vcores }}</value> 
+      </property>
+
+      <property> 
+        <name>yarn.scheduler.maximum-allocation-vcores</name> 
+        <value>{{ .Values.BasicConfig.yarnschedulermaximum-allocation-vcores }}</value> 
+      </property>
+
+      <property> 
+        <name>yarn.nodemanager.resource.memory-mb</name> 
+        <value>{{ .Values.BasicConfig.yarnnodemanagerresourcememory-mb }}</value> 
+      </property>
+      
+      <property> 
+        <name>yarn.nodemanager.vmem-pmem-ratio</name> 
+        <value>{{ .Values.BasicConfig.yarnnodemanagervmem-pmem-ratio }}</value> 
+      </property>
+
+      <property> 
+        <name>yarn.nodemanager.resource.cpu-vcores</name> 
+        <value>{{ .Values.BasicConfig.yarnnodemanagerresourcecpu-vcores }}</value> 
+      </property>
+
     </configuration>
 
