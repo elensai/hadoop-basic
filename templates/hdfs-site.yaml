@@ -118,7 +118,7 @@ data:
 
       <property>    
         <name>dfs.block.size</name>    
-        <value>{{ .Values.BasicConfig.dfsblocksize }}</value>    
+        <value>{{ .Values.BasicConfig.dfsblocksize | quote }}</value>    
       </property>
 
       <property>    
