@@ -18,14 +18,14 @@ BasicConfig:
   dfspermissionsenable: false
   dfsdatanodedureserved: 0
   iofilebuffersize: 4096
-  yarnschedulerminimum-allocation-mb: 1024
-  yarnschedulermaximum-allocation-mb: 8192
-  yarnschedulerminimum-allocation-vcores: 1
-  yarnschedulermaximum-allocation-vcores: 32
-  yarnnodemanagerresourcememory-mb: 8192
-  yarnnodemanagervmem-pmem-ratio: 2.1
-  yarnnodemanagerresourcecpu-vcores: 8
-  yarnnodemanagervmem-check-enabled: false
+  yarnschedulerminimumallocationmb: 1024
+  yarnschedulermaximumallocationmb: 8192
+  yarnschedulerminimumallocationvcores: 1
+  yarnschedulermaximumallocationvcores: 32
+  yarnnodemanagerresourcememorymb: 8192
+  yarnnodemanagervmempmemratio: 2.1
+  yarnnodemanagerresourcecpuvcores: 8
+  yarnnodemanagervmemcheckenabled: false
 
 databaseimage: registry.elensdata.com:333/elensai/hadoop-072212
 

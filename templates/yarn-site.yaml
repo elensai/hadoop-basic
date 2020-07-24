@@ -25,7 +25,7 @@ data:
     <configuration>
       <property>  
         <name>yarn.nodemanager.vmem-check-enabled</name>  
-        <value>{{ .Values.BasicConfig.yarnnodemanagervmem-check-enabled }}</value>  
+        <value>{{ .Values.BasicConfig.yarnnodemanagervmemcheckenabled }}</value>  
       </property> 
       <property>
         <name>yarn.resourcemanager.ha.enabled</name>
@@ -131,37 +131,37 @@ data:
 
       <property> 
         <name>yarn.scheduler.minimum-allocation-mb</name> 
-        <value>{{ .Values.BasicConfig.yarnschedulerminimum-allocation-mb }}</value> 
+        <value>{{ .Values.BasicConfig.yarnschedulerminimumallocationmb }}</value> 
       </property>
 
       <property> 
         <name>yarn.scheduler.maximum-allocation-mb</name> 
-        <value>{{ .Values.BasicConfig.yarnschedulermaximum-allocation-mb }}</value> 
+        <value>{{ .Values.BasicConfig.yarnschedulermaximumallocationmb }}</value> 
       </property>
       
       <property> 
         <name>yarn.scheduler.minimum-allocation-vcores</name> 
-        <value>{{ .Values.BasicConfig.yarnschedulerminimum-allocation-vcores }}</value> 
+        <value>{{ .Values.BasicConfig.yarnschedulerminimumallocationvcores }}</value> 
       </property>
 
       <property> 
         <name>yarn.scheduler.maximum-allocation-vcores</name> 
-        <value>{{ .Values.BasicConfig.yarnschedulermaximum-allocation-vcores }}</value> 
+        <value>{{ .Values.BasicConfig.yarnschedulermaximumallocationvcores }}</value> 
       </property>
 
       <property> 
         <name>yarn.nodemanager.resource.memory-mb</name> 
-        <value>{{ .Values.BasicConfig.yarnnodemanagerresourcememory-mb }}</value> 
+        <value>{{ .Values.BasicConfig.yarnnodemanagerresourcememorymb }}</value> 
       </property>
       
       <property> 
         <name>yarn.nodemanager.vmem-pmem-ratio</name> 
-        <value>{{ .Values.BasicConfig.yarnnodemanagervmem-pmem-ratio }}</value> 
+        <value>{{ .Values.BasicConfig.yarnnodemanagervmempmemratio }}</value> 
       </property>
 
       <property> 
         <name>yarn.nodemanager.resource.cpu-vcores</name> 
-        <value>{{ .Values.BasicConfig.yarnnodemanagerresourcecpu-vcores }}</value> 
+        <value>{{ .Values.BasicConfig.yarnnodemanagerresourcecpuvcores }}</value> 
       </property>
 
     </configuration>

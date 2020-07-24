@@ -47,53 +47,54 @@ questions:
   group: "hadoop-basic optimize"
   label: "HDFS 缓存大小"
 
-- variable: BasicConfig.yarnschedulerminimum-allocation-mb
+- variable: BasicConfig.yarnschedulerminimumallocationmb
   type: string
   default: 1024
   group: "hadoop-basic optimize"
   label: "最小容器(yarn)内存"
 
-- variable: BasicConfig.yarnschedulermaximum-allocation-mb
+- variable: BasicConfig.yarnschedulermaximumallocationmb
   type: string
   default: 8192
   group: "hadoop-basic optimize"
   label: "最大容器(yarn)内存"
 
-- variable: BasicConfig.yarnschedulerminimum-allocation-vcores
+- variable: BasicConfig.yarnschedulerminimumallocationvcores
   type: string
   default: 1
   group: "hadoop-basic optimize"
   label: "最小容器(yarn)虚拟CPU内核数量"
 
-- variable: BasicConfig.yarnschedulermaximum-allocation-vcores
+- variable: BasicConfig.yarnschedulermaximumallocationvcores
   type: string
   default: 32
   group: "hadoop-basic optimize"
   label: "最大容器(yarn)虚拟CPU内核数量"
 
-- variable: BasicConfig.yarnnodemanagerresourcememory-mb
+- variable: BasicConfig.yarnnodemanagerresourcememorymb
   type: string
   default: 8192
   group: "hadoop-basic optimize"
   label: "每个节点可用的最大内存"
 
-- variable: BasicConfig.yarnnodemanagervmem-pmem-ratio
+- variable: BasicConfig.yarnnodemanagervmempmemratio
   type: string
   default: 2.1
   group: "hadoop-basic optimize"
   label: "每使用1MB物理内存，最多可用的虚拟内存数"
 
-- variable: BasicConfig.yarnnodemanagerresourcecpu-vcores
+- variable: BasicConfig.yarnnodemanagerresourcecpuvcores
   type: string
   default: 8
   group: "hadoop-basic optimize"
   label: "容器虚拟 CPU 内核"
 
-- variable: BasicConfig.yarnnodemanagervmem-check-enabled
+- variable: BasicConfig.yarnnodemanagervmemcheckenabled
   type: string
   default: false
   group: "hadoop-basic optimize"
   label: "是否开启虚拟内存检查"
+  
 
 - variable: BasicConfig.StorageServer
   type: string
