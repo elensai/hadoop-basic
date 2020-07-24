@@ -253,4 +253,3 @@ spec:
       targetPort: 16010
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
-

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-down-svc-3
+  labels:
+    dep: hdfs-down-svc-3
+spec:
+  type: NodePort
+  ports:
+    - name: hdfs-d
+      port: 50075
+      targetPort: 50075
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-3"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarn-node-svc-3
+  labels:
+    dep: yarn-node-svc-3
+spec:
+  type: NodePort
+  ports:
+    - name: yarn-node
+      port: 8042
+      targetPort: 8042
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-3"
