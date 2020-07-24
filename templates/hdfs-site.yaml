@@ -118,10 +118,7 @@ data:
 
       <property>    
         <name>dfs.block.size</name>    
-        <!--
         <value>{{ int .Values.BasicConfig.dfsblocksize }}</value>    
-        -->
-        <value>134217728</value>
       </property>
 
       <property>    
