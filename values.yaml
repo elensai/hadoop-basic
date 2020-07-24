@@ -12,7 +12,7 @@ BasicConfig:
   RootPasswd: ""
   ServicePort: ""
   dfsreplication: 3
-  dfsblocksize: !!string 134217728
+  dfsblocksize: 1
   dfsnamenodehandlercount: 10
   dfsdatanodehandlercount: 3
   dfspermissionsenable: false
