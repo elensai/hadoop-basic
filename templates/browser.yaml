@@ -10,6 +10,9 @@ spec:
     - name: hdfs-b
       port: 50070
       targetPort: 50070
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 50070
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 ---
@@ -25,6 +28,9 @@ spec:
     - name: hdfs-d
       port: 50075
       targetPort: 50075
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 50075
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 ---
@@ -40,6 +46,9 @@ spec:
     - name: yarn
       port: 8088
       targetPort: 8088
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 8088
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 ---
@@ -55,6 +64,9 @@ spec:
     - name: yarn-node
       port: 8042
       targetPort: 8042
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 8042
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 ---
@@ -70,6 +82,9 @@ spec:
     - name: hbase
       port: 16010
       targetPort: 16010
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 16010
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 ---
@@ -101,6 +116,9 @@ spec:
     - name: hdfs-d
       port: 50075
       targetPort: 50075
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 50075
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 ---
@@ -116,6 +134,9 @@ spec:
     - name: yarn
       port: 8088
       targetPort: 8088
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 8088
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 ---
@@ -131,6 +152,9 @@ spec:
     - name: yarn-node
       port: 8042
       targetPort: 8042
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 8042
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 ---
@@ -146,6 +170,9 @@ spec:
     - name: oozie
       port: 11000
       targetPort: 11000
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 11000
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 ---
@@ -161,6 +188,9 @@ spec:
     - name: hdfs-browser
       port: 50070
       targetPort: 50070
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 50070
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
@@ -176,6 +206,9 @@ spec:
     - name: hdfs-down
       port: 50075
       targetPort: 50075
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 50075
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
@@ -191,6 +224,9 @@ spec:
     - name: yarn-node
       port: 8042
       targetPort: 8042
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 8042
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
@@ -206,6 +242,9 @@ spec:
     - name: yarn-history
       port: 19888
       targetPort: 19888
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 19888
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
@@ -221,6 +260,9 @@ spec:
     - name: spark-history
       port: 18080
       targetPort: 18080
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 18080
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
@@ -236,6 +278,9 @@ spec:
     - name: flink-history
       port: 8082
       targetPort: 8082
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 8082
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
@@ -251,5 +296,8 @@ spec:
     - name: hbase
       port: 16010
       targetPort: 16010
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePord: 16010
+      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
