@@ -113,11 +113,13 @@ questions:
   default: 1Gi
   group: "hadoop-basic"
   label: "存储空间大小"
-- variable: BasicConfig.nodeMemory
+
+  - variable: BasicConfig.nodeMemory
   type: string
   default: 4096
   group: "hadoop-basic"
   label: "每个节点内存量（M）"
+  
 - variable: BasicConfig.nodeCpu
   type: string
   default: 4
