@@ -28,6 +28,7 @@ BasicConfig:
   yarnnodemanagervmemcheckenabled: false
   nodeMemory: 4096
   nodeCpu: 1
+  RealDeployment: false
 
 databaseimage: registry.elensdata.com:333/elensai/hadoop-072212
 
