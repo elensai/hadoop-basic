@@ -27,7 +27,7 @@ BasicConfig:
   yarnnodemanagerresourcecpuvcores: 8
   yarnnodemanagervmemcheckenabled: false
   nodeMemory: 4096
-  nodeCpu: 4
+  nodeCpu: 2
 
 databaseimage: registry.elensdata.com:333/elensai/hadoop-072212
 
