@@ -91,6 +91,14 @@ spec:
         - name: initfstart
           mountPath: /user/nodeinfo/start.sh
           subPath: start.sh
+        resources:
+          limits:
+            cpu: {{ mul .Values.BasicConfig.nodeCpu 1000 }}m
+            memory: {{ .Values.BasicConfig.nodeMemory }}Mi
+          requests:
+            cpu: {{ mul .Values.BasicConfig.nodeCpu 1000 }}m
+            memory: {{ .Values.BasicConfig.nodeMemory }}Mi
+
       volumes:
       - name: nodeinfo
         persistentVolumeClaim:
