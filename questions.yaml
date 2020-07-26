@@ -144,6 +144,14 @@ questions:
   group: "hadoop-basic"
   label: "mysql 端口"
 
+- variable: BasicConfig.RealDeployment
+  type: Boolean
+  default: false
+  group: "hadoop-basic"
+  label: "真实部署"
+
+
+
 - variable: mysql-basic.BasicConfig.StorageServer
   type: string
   default: 192.168.1.163
