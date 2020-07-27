@@ -145,10 +145,13 @@ questions:
   label: "mysql 端口"
 
 - variable: BasicConfig.RealDeployment
-  type: Boolean
+  type: enum
   default: false
   group: "hadoop-basic"
   label: "真实部署"
+  options:
+  - true
+  - false
 
 
 
