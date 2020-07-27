@@ -148,7 +148,7 @@ questions:
   type: boolean
   default: false
   group: "hadoop-basic"
-  label: "真实部署"
+  label: "真实部署(确认理解这个选项再做修改)"
   options:
   - true
   - false
