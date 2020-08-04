@@ -15,6 +15,10 @@ data:
     mkdir -p /user/data/zookeeper
     echo $host_num > /user/data/zookeeper/myid;
 
+    rm -f /user/apps/kafka-1.1.0/config/server.properties
+    cp /user/apps/kafka-1.1.0/config/server.properties.bak /user/apps/kafka-1.1.0/config/server.properties
+    sed -i 's/%%X%%/'$host_num'/' /user/apps/kafka-1.1.0/config/server.properties
+
     {{ range $nodecount, $e := until ($nodeReplicaCount|int) }}
       {{- if eq $nodecount 0 }}
     host_dns=( "{{ $chartName }}-ss-{{ $nodecount }}.ha-svc.{{ $namespace }}.svc.cluster.local"
