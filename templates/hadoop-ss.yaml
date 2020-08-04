@@ -92,6 +92,9 @@ spec:
         - name: initfstart
           mountPath: /user/nodeinfo/start.sh
           subPath: start.sh
+        - name: kafka-server-properties
+          mountPath: /user/apps/kafka-1.1.0/config/server.properties.bak
+          subPath: server.properties.bak
         resources:
           limits:
             cpu: {{ mul .Values.BasicConfig.nodeCpu 1000 }}m
@@ -224,6 +227,12 @@ spec:
           items:
           - key: initfstart-config
             path: start.sh
+      - name: kafka-server-properties
+        configMap:
+          name: kafka-server-properties
+          items:
+          - key: kafka-server-properties
+            path: server.properties.bak
       {{- if .Values.BasicConfig.RealDeployment }}
       affinity:
         podAntiAffinity:
