@@ -30,7 +30,7 @@ BasicConfig:
   nodeCpu: 1
   RealDeployment: false
 
-databaseimage: registry.elensdata.com:333/elensai/hadoop-072212
+databaseimage: registry.elensdata.com:333/elensai/hadoop-080428
 
 volumenum:
 - num: "0"
