@@ -24,7 +24,7 @@ data:
     # Define some default values that can be overridden by system properties
     hive.log.threshold=ALL
     hive.root.logger=INFO,DRFA
-    hive.log.dir=/user/apps/hive-1.2.1/logs
+    hive.log.dir=/user/apps/hive-1.2.2/logs
     hive.log.file=hive.log
 
     # Define the root logger to the system property "hadoop.root.logger".
