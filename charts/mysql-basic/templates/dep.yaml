@@ -23,6 +23,8 @@ spec:
           env:
             - name: "MYSQL_ROOT_PASSWORD"
               value: {{ .Values.BasicConfig.RootPasswd | quote }}
+            - name: "TZ"
+              value: "Asia/Shanghai"
           ports:
             - name: mysql-port
               containerPort: 3306
