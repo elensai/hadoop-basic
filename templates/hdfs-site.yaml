@@ -145,6 +145,11 @@ data:
         <name>dfs.datanode.du.reserved</name>    
         <value>{{ .Values.BasicConfig.dfsdatanodedureserved }}</value> 
       </property>
+
+      <property>
+        <name>dfs.qjournal.write-txns.timeout.ms</name>
+        <value>60000</value>
+      </property>
         
     </configuration>
 
