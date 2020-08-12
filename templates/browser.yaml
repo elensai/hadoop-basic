@@ -11,7 +11,7 @@ spec:
       port: 50070
       targetPort: 50070
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 50070
+      nodePort: 50070
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
@@ -29,7 +29,7 @@ spec:
       port: 50075
       targetPort: 50075
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 50075
+      nodePort: 50075
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
@@ -47,7 +47,7 @@ spec:
       port: 8088
       targetPort: 8088
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 8088
+      nodePort: 8088
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
@@ -65,7 +65,7 @@ spec:
       port: 8042
       targetPort: 8042
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 8042
+      nodePort: 8042
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
@@ -83,7 +83,7 @@ spec:
       port: 16010
       targetPort: 16010
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 16010
+      nodePort: 16010
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
@@ -117,7 +117,7 @@ spec:
       port: 50075
       targetPort: 50075
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 50075
+      nodePort: 50075
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
@@ -135,7 +135,7 @@ spec:
       port: 8088
       targetPort: 8088
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 8088
+      nodePort: 8088
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
@@ -153,7 +153,7 @@ spec:
       port: 8042
       targetPort: 8042
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 8042
+      nodePort: 8042
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
@@ -171,7 +171,7 @@ spec:
       port: 11000
       targetPort: 11000
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 11000
+      nodePort: 11000
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
@@ -189,7 +189,7 @@ spec:
       port: 50070
       targetPort: 50070
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 50070
+      nodePort: 50070
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
@@ -207,7 +207,7 @@ spec:
       port: 50075
       targetPort: 50075
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 50075
+      nodePort: 50075
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
@@ -225,7 +225,7 @@ spec:
       port: 8042
       targetPort: 8042
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 8042
+      nodePort: 8042
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
@@ -243,7 +243,7 @@ spec:
       port: 19888
       targetPort: 19888
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 19888
+      nodePort: 19888
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
@@ -261,7 +261,7 @@ spec:
       port: 18080
       targetPort: 18080
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 18080
+      nodePort: 18080
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
@@ -279,7 +279,7 @@ spec:
       port: 8082
       targetPort: 8082
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 8082
+      nodePort: 8082
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
@@ -297,7 +297,7 @@ spec:
       port: 16010
       targetPort: 16010
       {{- if .Values.BasicConfig.RealDeployment }}
-      nodePord: 16010
+      nodePort: 16010
       {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
