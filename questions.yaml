@@ -67,7 +67,7 @@ questions:
 
 - variable: BasicConfig.yarnschedulermaximumallocationvcores
   type: string
-  default: 32
+  default: 4
   group: "hadoop-basic optimize"
   label: "最大容器(yarn)虚拟CPU内核数量"
 
@@ -85,7 +85,7 @@ questions:
 
 - variable: BasicConfig.yarnnodemanagerresourcecpuvcores
   type: string
-  default: 8
+  default: 4
   group: "hadoop-basic optimize"
   label: "容器虚拟 CPU 内核"
 
@@ -98,7 +98,7 @@ questions:
 
 - variable: BasicConfig.StorageServer
   type: string
-  default: 192.168.1.251
+  default: 172.30.78.141
   group: "hadoop-basic"
   label: "NFS服务器IP"
 
@@ -157,7 +157,7 @@ questions:
 
 - variable: mysql-basic.BasicConfig.StorageServer
   type: string
-  default: 192.168.1.251
+  default: 172.30.78.141
   group: "mysql-basic"
   label: "NFS服务器IP"
 
@@ -169,7 +169,7 @@ questions:
 
 - variable: mysql-basic.BasicConfig.StorageCapacity
   type: string
-  default: 1Gi
+  default: 5Gi
   group: "mysql-basic"
   label: "mysql存储容量"
 
