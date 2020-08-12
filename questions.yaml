@@ -55,7 +55,7 @@ questions:
 
 - variable: BasicConfig.yarnschedulermaximumallocationmb
   type: string
-  default: 8192
+  default: 14384
   group: "hadoop-basic optimize"
   label: "最大容器(yarn)内存"
 
@@ -73,7 +73,7 @@ questions:
 
 - variable: BasicConfig.yarnnodemanagerresourcememorymb
   type: string
-  default: 8192
+  default: 14384
   group: "hadoop-basic optimize"
   label: "每个节点可用的最大内存"
 
@@ -98,31 +98,31 @@ questions:
 
 - variable: BasicConfig.StorageServer
   type: string
-  default: 192.168.1.163
+  default: 192.168.1.251
   group: "hadoop-basic"
   label: "NFS服务器IP"
 
 - variable: BasicConfig.StoragePath
   type: string
-  default: /nfsdata/test137/
+  default: /nfsdata/datacenter/
   group: "hadoop-basic"
   label: "NFS服务器路径(必须 / 结尾)"
 
 - variable: BasicConfig.StorageCapacity
   type: string
-  default: 1Gi
+  default: 10Gi
   group: "hadoop-basic"
   label: "存储空间大小"
 
 - variable: BasicConfig.nodeMemory
   type: string
-  default: 4096
+  default: 16384
   group: "hadoop-basic"
   label: "每个节点内存量（M）"
   
 - variable: BasicConfig.nodeCpu
   type: string
-  default: 1
+  default: 4
   group: "hadoop-basic"
   label: "每个节点CPU核数"
 
@@ -157,13 +157,13 @@ questions:
 
 - variable: mysql-basic.BasicConfig.StorageServer
   type: string
-  default: 192.168.1.163
+  default: 192.168.1.251
   group: "mysql-basic"
   label: "NFS服务器IP"
 
 - variable: mysql-basic.BasicConfig.StoragePath
   type: string
-  default: /nfsdata/test137/
+  default: /nfsdata/datacenter/
   group: "mysql-basic"
   label: "NFS服务器路径(必须 / 结尾)"
 
