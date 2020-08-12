@@ -1,96 +1,6 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hdfs-browser-svc-0
-  labels:
-    dep: hdfs-browser-svc-0
-spec:
-  type: NodePort
-  ports:
-    - name: hdfs-b
-      port: 50070
-      targetPort: 50070
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 50070
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: hdfs-down-svc-0
-  labels:
-    dep: hdfs-down-svc-0
-spec:
-  type: NodePort
-  ports:
-    - name: hdfs-d
-      port: 50075
-      targetPort: 50075
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 50075
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: yarn-svc-0
-  labels:
-    dep: yarn-svc-0
-spec:
-  type: NodePort
-  ports:
-    - name: yarn
-      port: 8088
-      targetPort: 8088
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 8088
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: yarn-node-svc-0
-  labels:
-    dep: yarn-node-svc-0
-spec:
-  type: NodePort
-  ports:
-    - name: yarn-node
-      port: 8042
-      targetPort: 8042
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 8042
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: hbase-svc-0
-  labels:
-    dep: hbase-svc-0
-spec:
-  type: NodePort
-  ports:
-    - name: hbase
-      port: 16010
-      targetPort: 16010
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 16010
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
----
-apiVersion: v1
-kind: Service
-metadata:
   name: tomcat-svc
   labels:
     dep: tomcat-svc
@@ -104,60 +14,10 @@ spec:
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: hdfs-down-svc-1
-  labels:
-    dep: hdfs-down-svc-1
-spec:
-  type: NodePort
-  ports:
-    - name: hdfs-d
-      port: 50075
-      targetPort: 50075
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 50075
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: yarn-svc-1
-  labels:
-    dep: yarn-svc-1
-spec:
-  type: NodePort
-  ports:
-    - name: yarn
-      port: 8088
-      targetPort: 8088
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 8088
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: yarn-node-svc-1
-  labels:
-    dep: yarn-node-svc-1
-spec:
-  type: NodePort
-  ports:
-    - name: yarn-node
-      port: 8042
-      targetPort: 8042
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 8042
-      {{- end }}
-  selector:
-    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
----
+
+
+
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -176,6 +36,75 @@ spec:
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 ---
+
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarn-svc-0
+  labels:
+    dep: yarn-svc-0
+spec:
+  type: NodePort
+  ports:
+    - name: yarn
+      port: 8088
+      targetPort: 8088
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePort: 8088
+      {{- end }}
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+    {{- if .Values.BasicConfig.RealDeployment }}
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
+    {{- end }}
+---
+{{- if not .Values.BasicConfig.RealDeployment }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarn-svc-1
+  labels:
+    dep: yarn-svc-1
+spec:
+  type: NodePort
+  ports:
+    - name: yarn
+      port: 8088
+      targetPort: 8088
+      
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
+---
+{{- end }}
+
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-browser-svc-0
+  labels:
+    dep: hdfs-browser-svc-0
+spec:
+  type: NodePort
+  ports:
+    - name: hdfs-b
+      port: 50070
+      targetPort: 50070
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePort: 50070
+      {{- end }}
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+    {{- if .Values.BasicConfig.RealDeployment }}
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+    {{- end }}
+---
+{{- if not .Values.BasicConfig.RealDeployment }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -188,11 +117,51 @@ spec:
     - name: hdfs-browser
       port: 50070
       targetPort: 50070
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 50070
-      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+---
+{{- end }}
+
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-down-svc-0
+  labels:
+    dep: hdfs-down-svc-0
+spec:
+  type: NodePort
+  ports:
+    - name: hdfs-d
+      port: 50075
+      targetPort: 50075
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePort: 50075
+      {{- end }}
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+    {{- if .Values.BasicConfig.RealDeployment }}
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+    {{- end }}
+---
+{{- if not .Values.BasicConfig.RealDeployment }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-down-svc-1
+  labels:
+    dep: hdfs-down-svc-1
+spec:
+  type: NodePort
+  ports:
+    - name: hdfs-d
+      port: 50075
+      targetPort: 50075
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 ---
 apiVersion: v1
 kind: Service
@@ -206,11 +175,52 @@ spec:
     - name: hdfs-down
       port: 50075
       targetPort: 50075
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 50075
-      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+---
+{{- end }}
+
+
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarn-node-svc-0
+  labels:
+    dep: yarn-node-svc-0
+spec:
+  type: NodePort
+  ports:
+    - name: yarn-node
+      port: 8042
+      targetPort: 8042
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePort: 8042
+      {{- end }}
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+    {{- if .Values.BasicConfig.RealDeployment }}
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+    {{- end }}
+---
+{{- if not .Values.BasicConfig.RealDeployment }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarn-node-svc-1
+  labels:
+    dep: yarn-node-svc-1
+spec:
+  type: NodePort
+  ports:
+    - name: yarn-node
+      port: 8042
+      targetPort: 8042
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-1"
 ---
 apiVersion: v1
 kind: Service
@@ -224,12 +234,14 @@ spec:
     - name: yarn-node
       port: 8042
       targetPort: 8042
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 8042
-      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
+{{- end }}
+
+
+
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -248,6 +260,10 @@ spec:
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
+
+
+
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -266,6 +282,9 @@ spec:
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
+
+
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -284,6 +303,32 @@ spec:
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
 ---
+
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hbase-svc-0
+  labels:
+    dep: hbase-svc-0
+spec:
+  type: NodePort
+  ports:
+    - name: hbase
+      port: 16010
+      targetPort: 16010
+      {{- if .Values.BasicConfig.RealDeployment }}
+      nodePort: 16010
+      {{- end }}
+  selector:
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-0"
+    {{- if .Values.BasicConfig.RealDeployment }}
+    statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+    {{- end }}
+---
+{{- if not .Values.BasicConfig.RealDeployment }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -296,8 +341,6 @@ spec:
     - name: hbase
       port: 16010
       targetPort: 16010
-      {{- if .Values.BasicConfig.RealDeployment }}
-      nodePort: 16010
-      {{- end }}
   selector:
     statefulset.kubernetes.io/pod-name: "{{ .Chart.Name }}-ss-2"
+{{- end }}
